@@ -12,8 +12,5 @@ func _ready() -> void:
 
 
 func init_grid_locations() -> void:
-	for cell in MapManager.map.get_used_cells():
-		prints(cell, MapManager.map.map_to_local(cell))
 	for entity in entities:
 		MapManager.reseat_entity(entity)
-		prints(entity.name, entity.grid_position)

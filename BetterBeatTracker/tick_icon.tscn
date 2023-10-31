@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bu3w77wmw4fsf" path="res://icon.svg" id="2_bs6uv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5d7xn"]
+resource_local_to_scene = true
 shader = ExtResource("1_x7k8x")
 shader_parameter/edge = 1.0
 
@@ -27,3 +28,11 @@ scale = Vector2(1.24999, 1.24999)
 texture = ExtResource("2_bs6uv")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 128)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -64.0
+offset_top = 92.0
+offset_right = 79.0
+offset_bottom = 159.0
+theme_override_font_sizes/font_size = 196
+text = "00"

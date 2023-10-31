@@ -21,7 +21,6 @@ func _ready() -> void:
 
 func handle_input_beat(input_data: Dictionary) -> void:
 	if can_move:
-		#prints(input_data)
 		move_by_input(input_data)
 
 func move_by_input(input_data: Dictionary) -> void:
