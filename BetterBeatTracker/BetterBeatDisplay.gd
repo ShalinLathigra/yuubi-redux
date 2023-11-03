@@ -15,7 +15,11 @@ var target_scale: Vector2
 
 var started: bool
 
-func init(ticks: Array[Dictionary]) -> void:
+func init(ticks: Array[Dictionary], ms_to_reach_target_in: int, ms_per_beat_in: int) -> void:
+
+	ms_to_reach_target = ms_to_reach_target_in
+	ms_per_beat = ms_per_beat_in
+
 	var start_obj := ($StartPoint as Sprite2D)
 	var target_obj := ($EndPoint as Sprite2D)
 
@@ -42,8 +46,8 @@ func update(ticks: Array[Dictionary]) -> void:
 	var time = Time.get_ticks_msec()
 
 	for tick in ticks:
-		tick.sprite.self_modulate = BeatTracker.beat_color_map[tick.beat_state]
-		prints(tick.index, BeatTracker.beat_color_map[tick.beat_state])
+		if tick.beat_state in BeatTracker.beat_type_map.keys():
+			tick.sprite.self_modulate = BeatTracker.beat_color_map[tick.beat_state]
 		var t = float(time - tick.start_time) / ms_to_reach_target
 
 		tick.sprite.position = target_pos * t + start_pos * (1.0 - t)
@@ -58,12 +62,6 @@ func update(ticks: Array[Dictionary]) -> void:
 			tick.sprite.modulate.a = 5.0 - 4.0 * t
 		else:
 			tick.sprite.modulate.a = 0.0
-
-
-# TODO: Update beat tracker
-# When a button is pressed, we need to know the n-1th beat that's going on.
-# current beat should always be:
-# When the beat is triggered and is good, look at the current beat. See if it's ACTUALLY good or not.
 
 func generate_color() -> Color:
 	return Color(randf(), randf(), randf())

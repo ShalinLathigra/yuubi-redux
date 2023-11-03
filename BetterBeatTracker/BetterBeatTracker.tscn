@@ -22,7 +22,7 @@ shader_parameter/edge_offset = 7.4506e-09
 [node name="BetterBeatTracker" type="CanvasLayer"]
 script = ExtResource("4_1cqg3")
 ms_to_reach_target = 2500
-ms_per_beat = 800
+ms_per_beat = 500
 
 [node name="BetterBeatDisplay" type="Node2D" parent="."]
 script = ExtResource("1_1civh")

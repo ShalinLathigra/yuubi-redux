@@ -15,6 +15,12 @@ func _process(_delta: float) -> void:
 			broadcast_input_on_beat(input, time)
 			break
 
+# TODO: Will this need to handle having multiple ticks happening all at the same time?
+# TODO: Maybe ticks need to be aware of when they're ticked. If a tick is already in a state, flag it.
+# TODO: Allow get_beat to return false. Not always going to receive a beat.
+
+# How do other rhythm games handle this?
+
 # add an option to beat tracker to reflect whether the last beat was triggered or not
 # Now then, I can press a number and find out if it's at the right time.
 func broadcast_input_on_beat(input: String, time: int) -> void:

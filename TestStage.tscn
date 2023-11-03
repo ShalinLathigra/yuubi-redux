@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bxtycqilfagb"]
+[gd_scene load_steps=33 format=3 uid="uid://bxtycqilfagb"]
 
 [ext_resource type="Script" path="res://TestStage.gd" id="1_4rqtg"]
 [ext_resource type="Texture2D" uid="uid://bu3w77wmw4fsf" path="res://icon.svg" id="1_v60yh"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://EntityManager.gd" id="2_vnww8"]
 [ext_resource type="Texture2D" uid="uid://daxaxdb6ntof2" path="res://Basher/charge.png" id="3_o2tg6"]
 [ext_resource type="Script" path="res://Player.gd" id="5_vv780"]
-[ext_resource type="PackedScene" uid="uid://crry30umvecm" path="res://BetterBeatTracker/BetterBeatTracker.tscn" id="8_pjjd2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_faex5"]
 albedo_texture = ExtResource("1_v60yh")
@@ -226,5 +225,3 @@ sprite_frames = SubResource("SpriteFrames_w7bkk")
 animation = &"Idle"
 frame_progress = 0.435412
 script = ExtResource("5_vv780")
-
-[node name="CanvasLayer" parent="." instance=ExtResource("8_pjjd2")]

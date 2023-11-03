@@ -47,9 +47,8 @@ func _ready() -> void:
 
 	beat_display = $BetterBeatDisplay as BetterBeatDisplay
 	assert(beat_display)
-	beat_display.ms_to_reach_target = ms_to_reach_target
-	beat_display.ms_per_beat = ms_per_beat
-	beat_display.init(ticks)
+	beat_display.init(ticks, ms_to_reach_target, ms_per_beat)
+	#print("created ticks: ", ticks)
 	beat_display.started = true
 
 # This is where the bulk of the work is done.
@@ -69,6 +68,7 @@ func _process(_delta: float) -> void:
 		elif not tick.active:
 				tick.active = true
 				tick.start_time = ms_per_beat * started_beats
+				#prints("resetting beat:", tick.index, "now in state", beat_type_map[tick.beat_state], "and color", beat_color_map[tick.beat_state])
 				tick.beat_state = BeatState.BASE
 				started_beats += 1
 	beat_display.update(ticks)
@@ -93,5 +93,6 @@ func get_beat(time: int):
 			ret = beat_type
 			break
 	current_beat.beat_state = ret
+	#prints("Handling beat:", current_beat.index, "is of state:", beat_type_map[current_beat.beat_state].text, "and color", beat_color_map[current_beat.beat_state])
 	return ret
 	# find out which beat you're going for
