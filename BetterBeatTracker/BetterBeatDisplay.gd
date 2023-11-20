@@ -30,14 +30,14 @@ func init(ticks: Array[Dictionary], ms_to_reach_target_in: int, ms_per_beat_in: 
 
 	# Instantiate all ticks
 	for i in range(int(ms_to_reach_target / ms_per_beat * 1.5)):
-		var new_sprite = tick_sprite_default.instantiate() as Sprite2D;
-		add_child(new_sprite)
-		new_sprite.position = start_obj.position
-		new_sprite.scale = start_obj.scale
-		new_sprite.self_modulate = BeatTracker.beat_color_map[ticks[i].beat_state]
-		new_sprite.get_node(String(new_sprite.get_path()) + "/Label").text = "%d" % i
+		var new_tick_icon = tick_sprite_default.instantiate() as Node2D;
+		add_child(new_tick_icon)
+		new_tick_icon.position = start_obj.position
+		new_tick_icon.scale = start_obj.scale
+		new_tick_icon.modulate = BeatTracker.beat_color_map[ticks[i].beat_state]
+		new_tick_icon.get_node(String(new_tick_icon.get_path()) + "/Label").text = "%d" % i
 
-		ticks[i].sprite = new_sprite
+		ticks[i].sprite = new_tick_icon
 
 # This is where the bulk of the work is done.
 func update(ticks: Array[Dictionary]) -> void:
@@ -47,7 +47,7 @@ func update(ticks: Array[Dictionary]) -> void:
 
 	for tick in ticks:
 		if tick.beat_state in BeatTracker.beat_type_map.keys():
-			tick.sprite.self_modulate = BeatTracker.beat_color_map[tick.beat_state]
+			tick.sprite.modulate = BeatTracker.beat_color_map[tick.beat_state]
 		var t = float(time - tick.start_time) / ms_to_reach_target
 
 		tick.sprite.position = target_pos * t + start_pos * (1.0 - t)
@@ -65,3 +65,5 @@ func update(ticks: Array[Dictionary]) -> void:
 
 func generate_color() -> Color:
 	return Color(randf(), randf(), randf())
+
+## TODO: ACCESSIBILITY, ALLOW VARIABLE OFFSET OF BEAT INDICATORS

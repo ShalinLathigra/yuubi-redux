@@ -223,5 +223,5 @@ double_sided = false
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_w7bkk")
 animation = &"Idle"
-frame_progress = 0.435412
+frame_progress = 0.0698451
 script = ExtResource("5_vv780")

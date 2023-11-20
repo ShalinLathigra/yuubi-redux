@@ -39,7 +39,8 @@ func _ready() -> void:
 			"start_time": ms_per_beat * i,
 			"index": i,
 			"name": "%d" % i,
-			"active": true,
+			"moving_and_visible": true,
+			"used": false,
 			"beat_state":BeatState.BASE
 		}
 		ticks.push_back(data)
@@ -61,15 +62,16 @@ func _process(_delta: float) -> void:
 		if t < 1.0:
 			continue
 		elif t < 1.25:
-			if tick.active:
-				tick.active = false
+			if tick.moving_and_visible:
+				tick.moving_and_visible = false
 				tick_index = (tick_index + 1) % ticks.size()
 				beat.emit()
-		elif not tick.active:
-				tick.active = true
+		elif not tick.moving_and_visible:
+				tick.moving_and_visible = true
 				tick.start_time = ms_per_beat * started_beats
 				#prints("resetting beat:", tick.index, "now in state", beat_type_map[tick.beat_state], "and color", beat_color_map[tick.beat_state])
 				tick.beat_state = BeatState.BASE
+				tick.used = false
 				started_beats += 1
 	beat_display.update(ticks)
 
@@ -78,10 +80,14 @@ func _process(_delta: float) -> void:
 func get_beat(time: int):
 	# Starting out looking at this beat, will always check this and the previous
 	# beat to catch late-comers
+	var ret = BeatState.BAD
 	var current_beat = ticks[tick_index]
+
+	if current_beat.used:
+		return ret
+
 	var delta = ms_to_reach_target - abs(time - current_beat.start_time)
 
-	var ret = BeatState.BAD
 	for beat_type in beat_type_map:
 		var low_threshold = ms_per_beat * beat_type_map[beat_type].threshold_multiplier
 		var high_threshold = ms_per_beat - low_threshold * 0.5
@@ -93,6 +99,9 @@ func get_beat(time: int):
 			ret = beat_type
 			break
 	current_beat.beat_state = ret
+	current_beat.used = true
 	#prints("Handling beat:", current_beat.index, "is of state:", beat_type_map[current_beat.beat_state].text, "and color", beat_color_map[current_beat.beat_state])
+	# Fire off selector animations here!
 	return ret
-	# find out which beat you're going for
+
+## TODO: Figure out why this allows beats to be updated twice even through the "used" check
