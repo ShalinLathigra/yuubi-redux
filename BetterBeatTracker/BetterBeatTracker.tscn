@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://crry30umvecm"]
 
 [ext_resource type="Script" path="res://BetterBeatTracker/BetterBeatDisplay.gd" id="1_1civh"]
-[ext_resource type="Shader" path="res://SimpleBeatDisplay.gdshader" id="1_uu5um"]
+[ext_resource type="Shader" path="res://OldBeatTracker/SimpleBeatDisplay.gdshader" id="1_uu5um"]
 [ext_resource type="Texture2D" uid="uid://bu3w77wmw4fsf" path="res://icon.svg" id="2_8v8od"]
 [ext_resource type="PackedScene" uid="uid://bkftctijdkxfv" path="res://BetterBeatTracker/tick_icon.tscn" id="2_oyw2l"]
-[ext_resource type="Script" path="res://SimpleBeatDisplay.gd" id="3_omyyo"]
+[ext_resource type="Script" path="res://OldBeatTracker/SimpleBeatDisplay.gd" id="3_omyyo"]
 [ext_resource type="Script" path="res://BetterBeatTracker/BetterBeatTracker.gd" id="4_1cqg3"]
-[ext_resource type="Script" path="res://Line2D.gd" id="6_ycu56"]
+[ext_resource type="Script" path="res://BetterBeatTracker/Line2D.gd" id="6_ycu56"]
 [ext_resource type="Shader" path="res://BlankOut.gdshader" id="7_b1s2r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5d7xn"]

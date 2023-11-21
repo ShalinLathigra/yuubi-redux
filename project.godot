@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-InputBroadcaster="*res://InputBroadcaster.gd"
-MapManager="*res://MapManager.gd"
+InputBroadcaster="*res://Player/InputBroadcaster.gd"
+MapManager="*res://Autoloads/MapManager.gd"
 BeatTracker="*res://BetterBeatTracker/BetterBeatTracker.tscn"
 
 [editor_plugins]
