@@ -29,9 +29,11 @@ var ticks: Array[Dictionary]
 var tick_index : int
 var beat_display: BetterBeatDisplay
 var started_beats: int # Used to track where the next beat should be instantiated
+var seconds_per_beat: float
 
 func _ready() -> void:
 	# Instantiate all ticks
+	seconds_per_beat = ms_per_beat / 1000.0
 	for i in range(int(ms_to_reach_target / ms_per_beat * 1.5)):
 		# Save ref to data for later
 		var data = {

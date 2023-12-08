@@ -6,13 +6,24 @@ extends AnimatedSprite3D
 var tween: Tween
 var target_position: Vector3
 var step_dist := Vector3(0,0,1.28)
-var hop_height := 1.25
-var steps_taken := 0
 
 var grid_position: Vector3i
+var last_grid_position: Vector3i
 
 var locked := false
+
+var components: Array[Component]
 
 func _ready() -> void:
 	target_position = position
 	play("Idle")
+	for child in get_children():
+		if child is Component:
+			components.push_back(child)
+			child.body = self
+			child.init()
+
+func do_beat_update() -> void:
+	for component in components:
+		if component.has_method("do_beat_update"):
+			component.do_beat_update()

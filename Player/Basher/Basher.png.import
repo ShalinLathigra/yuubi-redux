@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyook8lbeodot"
-path="res://.godot/imported/run.png-0e2c224ccd2b575b3c21861eb7c3c025.ctex"
+uid="uid://co12lpvsrrufs"
+path="res://.godot/imported/Basher.png-d0f454a970fe325a93ba6ccd6eb41f22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Basher/run.png"
-dest_files=["res://.godot/imported/run.png-0e2c224ccd2b575b3c21861eb7c3c025.ctex"]
+source_file="res://Player/Basher/Basher.png"
+dest_files=["res://.godot/imported/Basher.png-d0f454a970fe325a93ba6ccd6eb41f22.ctex"]
 
 [params]
 

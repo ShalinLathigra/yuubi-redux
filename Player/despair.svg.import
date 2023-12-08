@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7niei0w18u07"
-path="res://.godot/imported/transition to charge.png-21e8912caa4a919311dc6c613e2fdb82.ctex"
+uid="uid://nniw2ef5fb0j"
+path="res://.godot/imported/despair.svg-39140ac6928fbcc57e9daa96e6983b7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Basher/transition to charge.png"
-dest_files=["res://.godot/imported/transition to charge.png-21e8912caa4a919311dc6c613e2fdb82.ctex"]
+source_file="res://Player/despair.svg"
+dest_files=["res://.godot/imported/despair.svg-39140ac6928fbcc57e9daa96e6983b7b.ctex"]
 
 [params]
 
@@ -31,4 +31,7 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
+svg/scale=0.25
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

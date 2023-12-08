@@ -1,14 +1,20 @@
-[gd_scene load_steps=35 format=3 uid="uid://bxtycqilfagb"]
+[gd_scene load_steps=25 format=3 uid="uid://bxtycqilfagb"]
 
 [ext_resource type="Script" path="res://TestStage.gd" id="1_4rqtg"]
 [ext_resource type="Texture2D" uid="uid://bu3w77wmw4fsf" path="res://icon.svg" id="1_v60yh"]
-[ext_resource type="Texture2D" uid="uid://bld0duymqvui7" path="res://Basher/idle.png" id="2_ecpc0"]
-[ext_resource type="Texture2D" uid="uid://bpmpxv8qvcnsg" path="res://Basher/attack.png" id="2_hk7ty"]
-[ext_resource type="Script" path="res://BetterBeatTracker/EntityManager.gd" id="2_vnww8"]
 [ext_resource type="Script" path="res://Player/PlayerMover.gd" id="3_cnbyk"]
-[ext_resource type="Texture2D" uid="uid://daxaxdb6ntof2" path="res://Basher/charge.png" id="3_o2tg6"]
+[ext_resource type="Texture2D" uid="uid://nniw2ef5fb0j" path="res://Player/despair.svg" id="4_o76qx"]
+[ext_resource type="Texture2D" uid="uid://bd6t7c6od612k" path="res://Player/discobolus.svg" id="4_vg26d"]
+[ext_resource type="Texture2D" uid="uid://cukbc7rc4eit2" path="res://Player/acrobatic.svg" id="5_07tsu"]
+[ext_resource type="Texture2D" uid="uid://crgn5rmd7r5xe" path="res://frisbee.svg" id="5_bk7q7"]
+[ext_resource type="Texture2D" uid="uid://dfd3t4u40wehx" path="res://Player/muscle-up.svg" id="5_h5tdh"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="5_vv780"]
+[ext_resource type="Texture2D" uid="uid://dsdipcw4brq67" path="res://Player/walk.svg" id="6_5twe6"]
 [ext_resource type="Script" path="res://Player/PlayerAttacker.gd" id="8_fdpaj"]
+[ext_resource type="Script" path="res://ProjectileBag.gd" id="12_06572"]
+[ext_resource type="Script" path="res://Enemy.gd" id="12_qei32"]
+[ext_resource type="Script" path="res://BasicMover.gd" id="14_huf8f"]
+[ext_resource type="PackedScene" uid="uid://ctsr73egtq5ws" path="res://Player/Attacker/ball.tscn" id="14_roa8d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_faex5"]
 albedo_texture = ExtResource("1_v60yh")
@@ -42,146 +48,66 @@ item/0/shapes = []
 item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/0/navigation_layers = 1
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_blum1"]
-atlas = ExtResource("2_hk7ty")
-region = Rect2(0, 0, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n5j7a"]
-atlas = ExtResource("2_hk7ty")
-region = Rect2(0, 39, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_us0so"]
-atlas = ExtResource("2_hk7ty")
-region = Rect2(0, 78, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mwjon"]
-atlas = ExtResource("2_hk7ty")
-region = Rect2(0, 117, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_es8aq"]
-atlas = ExtResource("2_hk7ty")
-region = Rect2(0, 156, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aono7"]
-atlas = ExtResource("2_hk7ty")
-region = Rect2(0, 195, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_36bg6"]
-atlas = ExtResource("2_hk7ty")
-region = Rect2(0, 234, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wkyjs"]
-atlas = ExtResource("2_hk7ty")
-region = Rect2(0, 273, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cri1u"]
-atlas = ExtResource("3_o2tg6")
-region = Rect2(0, 0, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h4o4r"]
-atlas = ExtResource("3_o2tg6")
-region = Rect2(0, 39, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vurxn"]
-atlas = ExtResource("3_o2tg6")
-region = Rect2(0, 78, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gr2wk"]
-atlas = ExtResource("3_o2tg6")
-region = Rect2(0, 117, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_myhkh"]
-atlas = ExtResource("2_ecpc0")
-region = Rect2(0, 0, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6tmac"]
-atlas = ExtResource("2_ecpc0")
-region = Rect2(0, 39, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5lkoi"]
-atlas = ExtResource("2_ecpc0")
-region = Rect2(0, 78, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iodp0"]
-atlas = ExtResource("2_ecpc0")
-region = Rect2(0, 117, 126, 39)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k8n88"]
-atlas = ExtResource("2_ecpc0")
-region = Rect2(0, 156, 126, 39)
+[sub_resource type="SpriteFrames" id="SpriteFrames_3h2iq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_5twe6")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_bk7q7")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 0.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w7bkk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_blum1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n5j7a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_us0so")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mwjon")
-}],
-"loop": false,
-"name": &"Attack1",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_es8aq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aono7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_36bg6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wkyjs")
-}],
-"loop": false,
-"name": &"Attack2",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cri1u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h4o4r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vurxn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gr2wk")
+"texture": ExtResource("5_h5tdh")
 }],
 "loop": true,
-"name": &"Charge",
-"speed": 24.0
+"name": &"Catch",
+"speed": 0.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_myhkh")
+"texture": ExtResource("4_o76qx")
+}],
+"loop": true,
+"name": &"FollowThrough",
+"speed": 0.0
 }, {
+"frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6tmac")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5lkoi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iodp0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k8n88")
+"texture": ExtResource("6_5twe6")
 }],
 "loop": true,
 "name": &"Idle",
-"speed": 12.0
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_07tsu")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vg26d")
+}],
+"loop": true,
+"name": &"Throw",
+"speed": 0.0
 }]
 
 [node name="Node3D" type="Node3D"]
@@ -211,29 +137,46 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.449118, 0)
 mesh_library = SubResource("MeshLibrary_smawf")
 cell_size = Vector3(1.28, 1.28, 1.28)
 data = {
-"cells": PackedInt32Array(65529, 65534, 0, 65529, 0, 0, 65529, 65535, 0, 65531, 0, 0, 65531, 65535, 0, 65531, 65534, 0, 65532, 0, 0, 65532, 65535, 0, 65532, 65534, 0, 65533, 65534, 0, 65534, 65534, 0, 65534, 65535, 0, 65533, 65535, 0, 65533, 0, 0, 65535, 0, 0, 65534, 0, 0, 0, 0, 0, 1, 0, 0, 0, 65535, 0, 65535, 65535, 0, 65535, 65534, 0, 0, 65534, 0, 1, 65534, 0, 1, 65535, 0, 4, 65535, 0, 4, 0, 0, 3, 0, 0, 2, 0, 0, 2, 65535, 0, 3, 65535, 0, 4, 65534, 0, 3, 65534, 0, 2, 65534, 0, 65529, 1, 0, 65531, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 3, 1, 0, 4, 1, 0, 2, 1, 0, 1, 1, 0, 0, 1, 0)
+"cells": PackedInt32Array(65529, 65534, 0, 65529, 0, 0, 65529, 65535, 0, 65531, 0, 0, 65531, 65535, 0, 65531, 65534, 0, 65532, 0, 0, 65532, 65535, 0, 65532, 65534, 0, 65533, 65534, 0, 65534, 65534, 0, 65534, 65535, 0, 65533, 65535, 0, 65533, 0, 0, 65535, 0, 0, 65534, 0, 0, 0, 0, 0, 1, 0, 0, 0, 65535, 0, 65535, 65535, 0, 65535, 65534, 0, 0, 65534, 0, 1, 65534, 0, 1, 65535, 0, 4, 65535, 0, 4, 0, 0, 3, 0, 0, 2, 0, 0, 2, 65535, 0, 3, 65535, 0, 4, 65534, 0, 3, 65534, 0, 2, 65534, 0, 65531, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 3, 1, 0, 4, 1, 0, 2, 1, 0, 1, 1, 0, 0, 1, 0, 65530, 1, 0, 65530, 0, 0, 65530, 65535, 0, 65530, 65534, 0, 65529, 1, 0)
 }
 
-[node name="EntityManager" type="Node" parent="."]
-script = ExtResource("2_vnww8")
+[node name="EntityGroup" type="Node" parent="."]
 
-[node name="Player" type="AnimatedSprite3D" parent="EntityManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.32, 0.64, -0.64)
-offset = Vector2(0, 5)
+[node name="ProjectileBag" type="Node" parent="EntityGroup"]
+script = ExtResource("12_06572")
+prefab = ExtResource("14_roa8d")
+
+[node name="Enemy" type="AnimatedSprite3D" parent="EntityGroup" groups=["Entity"]]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 5.76, 0.64, -0.64)
+offset = Vector2(0, 24)
+flip_h = true
+modulate = Color(0.666667, 0.0156863, 0, 1)
+pixel_size = 0.05
+double_sided = false
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_3h2iq")
+animation = &"Idle"
+script = ExtResource("12_qei32")
+
+[node name="Mover" type="Node" parent="EntityGroup/Enemy"]
+script = ExtResource("14_huf8f")
+
+[node name="Player" type="AnimatedSprite3D" parent="EntityGroup" groups=["Entity", "Player"]]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -8.32, 0.64, -0.64)
+offset = Vector2(0, 24)
+modulate = Color(0, 0.654902, 0.203922, 1)
 pixel_size = 0.05
 double_sided = false
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_w7bkk")
-animation = &"Idle"
-frame_progress = 0.846277
+animation = &"Throw"
 script = ExtResource("5_vv780")
 
-[node name="Attacker" type="Node3D" parent="EntityManager/Player" node_paths=PackedStringArray("body")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.32, -0.64, 0.64)
+[node name="Attacker" type="Node" parent="EntityGroup/Player" node_paths=PackedStringArray("projectile_bag")]
 script = ExtResource("8_fdpaj")
-body = NodePath("..")
+projectile_bag = NodePath("../../ProjectileBag")
 
-[node name="Mover" type="Node3D" parent="EntityManager/Player" node_paths=PackedStringArray("body")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.32, -0.64, 0.64)
+[node name="Mover" type="Node" parent="EntityGroup/Player"]
 script = ExtResource("3_cnbyk")
-body = NodePath("..")
+hop_height = 0.25
+beat_duration_ratio = 0.34

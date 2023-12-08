@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpmpxv8qvcnsg"
-path.s3tc="res://.godot/imported/attack.png-87a3fcc18e83ab9ba722ab27a74ab35e.s3tc.ctex"
+uid="uid://dsdipcw4brq67"
+path="res://.godot/imported/walk.svg-2a9325e265f3ee2fec6f3c8408fcedc9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Basher/attack.png"
-dest_files=["res://.godot/imported/attack.png-87a3fcc18e83ab9ba722ab27a74ab35e.s3tc.ctex"]
+source_file="res://Player/walk.svg"
+dest_files=["res://.godot/imported/walk.svg-2a9325e265f3ee2fec6f3c8408fcedc9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -33,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
+svg/scale=0.25
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
