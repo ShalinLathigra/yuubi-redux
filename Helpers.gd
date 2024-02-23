@@ -1,9 +1,10 @@
 class_name Helpers
 
-static func snap_to_entity_and_enable(subject: Entity2D, reference: Entity2D, grid: Grid) -> void:
-	subject.grid_pos = reference.grid_pos
+static func snap_to_entity_and_enable(subject: Entity2D, ref: Entity2D, grid: Grid) -> void:
+	subject.grid_pos = ref.grid_pos
 	subject.visible = true
 	subject.position = grid.map_to_local(subject.grid_pos)
+	subject.live = true
 
 static func parse_action_json_to_sequence(name: String, json_string: String) -> Array:
 	var json = JSON.new()

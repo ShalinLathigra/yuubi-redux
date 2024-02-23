@@ -1,29 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://b6qxvfmw6hnlo"]
+[gd_scene load_steps=18 format=3 uid="uid://b6qxvfmw6hnlo"]
 
 [ext_resource type="Script" path="res://Autoloads/BeatManager/BeatManager.gd" id="1_7v06m"]
-[ext_resource type="Script" path="res://Autoloads/BeatManager/GameBeatInfo.gd" id="2_cwxjn"]
+[ext_resource type="Resource" uid="uid://kjs8n50inteh" path="res://Autoloads/BeatManager/beat_manager.tres" id="2_3esds"]
 [ext_resource type="Script" path="res://Autoloads/BeatManager/BeatDisplay.gd" id="3_1bcbb"]
 [ext_resource type="Shader" path="res://Art/BlankOut.gdshader" id="4_dreh5"]
 [ext_resource type="AudioStream" uid="uid://27xxqchchlx6" path="res://Art/8-Bit - GUI Blip 001.wav" id="4_lg8ix"]
-
-[sub_resource type="Gradient" id="Gradient_f6sos"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.188356, 0.842466, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vcwk0"]
-gradient = SubResource("Gradient_f6sos")
-
-[sub_resource type="Resource" id="Resource_cuyel"]
-script = ExtResource("2_cwxjn")
-beats_per_minute = 120
-beat_width = 150
-display_offset = 0.0
-display_radius = 4.0
-time_to_sweet_spot = 3.5
-skin_width = 6.0
-sweet_spot_width = 2.0
-gradient = SubResource("GradientTexture1D_vcwk0")
+[ext_resource type="AudioStream" uid="uid://cwtojtoc4ojyp" path="res://Art/LOOP_Spikes & Slimes.wav" id="6_6pb44"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i61cq"]
 size = Vector2(1152, 40)
@@ -52,13 +34,13 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
+"end_offset": 0.4369,
+"start_offset": 0.0787,
 "stream": ExtResource("4_lg8ix")
 }],
-"times": PackedFloat32Array(-0.05)
+"times": PackedFloat32Array(0)
 }
-tracks/1/use_blend = true
+tracks/1/use_blend = false
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
@@ -96,6 +78,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0.886275, 0.054902, 0, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationPlayer/AudioStreamPlayer:pitch_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_d4ca5"]
@@ -148,11 +142,11 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
+"end_offset": 0.4414,
+"start_offset": 0.0798,
 "stream": ExtResource("4_lg8ix")
 }],
-"times": PackedFloat32Array(-0.05)
+"times": PackedFloat32Array(0)
 }
 tracks/3/use_blend = true
 tracks/4/type = "value"
@@ -214,7 +208,7 @@ shader_parameter/edge = 1.0
 
 [node name="BeatManager" type="CanvasLayer"]
 script = ExtResource("1_7v06m")
-stats = SubResource("Resource_cuyel")
+stats = ExtResource("2_3esds")
 bounds = SubResource("RectangleShape2D_i61cq")
 display_offset = Vector2(576, 64)
 
@@ -243,10 +237,14 @@ one_shot = true
 explosiveness = 0.88
 
 [node name="FlashSprite" type="Sprite2D" parent="AnimationPlayer"]
+self_modulate = Color(0, 0.886275, 0.101961, 1)
 material = SubResource("ShaderMaterial_018qi")
 position = Vector2(577, 64)
 scale = Vector2(1e-05, 1e-05)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer"]
-volume_db = -8.0
-pitch_scale = 0.75
+volume_db = -14.038
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_6pb44")
+volume_db = -27.879

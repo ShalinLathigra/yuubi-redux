@@ -21,6 +21,9 @@ var time_of_last_beat: int
 var display: Node2D
 var animation_player: AnimationPlayer
 
+var start_time_msecs: int
+var started: bool
+
 func _ready() -> void:
 	InputReceiver.on_input.connect(handle_input)
 
@@ -40,7 +43,7 @@ func _ready() -> void:
 	converted_rate = bounds.size.x / (stats.time_to_sweet_spot * 1000.0)
 	# looking for the ration of beat width vs bounds size
 	# time = distance / speed
-	beat_width_percentage = ((converted_rate * stats.beat_width) / bounds.size.x) * 0.5
+	beat_width_percentage = (stats.beat_width / (stats.time_to_sweet_spot * 1000.0)) * 0.5
 
 	# Initialize the AI beat timer
 	var beat_timer = create_tween().set_loops()
@@ -55,12 +58,18 @@ func _ready() -> void:
 	display.inject_data(num_beats, converted_rate, display_offset, bounds, stats, time_trackers, dbg)
 
 func handle_input(input: StringName, input_time: int):
+	if not started:
+		started = true
+		start_time_msecs = Time.get_ticks_msec()
+		$AudioStreamPlayer.play()
+
 	if dbg: prints(input, ":", input_time)
 	var t = 0.5
 	var is_good = false
 	for i in range(num_beats):
 		var time = time_trackers[i]
 		if dbg: labels[i].text = "%f %f %f %f" % [time - beat_width_percentage, time, t, time + beat_width_percentage]
+		else: labels[i].text = ""
 		if t < time - beat_width_percentage:
 			if dbg: labels[i].self_modulate = Color.RED
 			continue
@@ -80,7 +89,9 @@ func handle_input(input: StringName, input_time: int):
 
 func _process(_delta: float) -> void:
 	# Calculate Beat Offsets:
-	var elapsed_time = Time.get_ticks_msec()
+	if not started:
+		return
+	var elapsed_time = Time.get_ticks_msec() - start_time_msecs
 	for beat in range(num_beats):
 		# Determine the modulated time
 		var time_offset = ms_per_beat * beat
@@ -102,3 +113,11 @@ func _input(event: InputEvent) -> void:
 		dbg = not dbg
 		display.dbg = dbg
 		prints("Toggled Debug:", "ON" if dbg else "OFF")
+
+"""
+Adventure/Kick into warp drive
+Combat/
+	Break through the lines
+	Field Battle?
+
+"""

@@ -1,5 +1,11 @@
 class_name Grid extends TileMap
 
+@export var stats: GameBeatInfo
+var s_per_beat: float
+
+func _ready() -> void:
+	s_per_beat = 60.0 / stats.beats_per_minute
+
 func move_along_grid(entity: Entity2D, displacement: Vector2i) -> void:
 	if entity.tween:
 		entity.tween.stop()
@@ -12,8 +18,7 @@ func move_along_grid(entity: Entity2D, displacement: Vector2i) -> void:
 	entity.tween.tween_property(entity\
 								,"position"\
 								,map_to_local(entity.grid_pos + displacement)\
-								,0.4)\
-								.set_delay(randf() * 0.1)
+								,0.75 * s_per_beat)
 	entity.tween.tween_property(entity\
 								, "grid_pos"\
 								, entity.grid_pos + displacement,

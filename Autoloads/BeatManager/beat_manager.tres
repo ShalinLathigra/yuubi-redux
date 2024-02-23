@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="GameBeatInfo" load_steps=4 format=3 uid="uid://kjs8n50inteh"]
+
+[ext_resource type="Script" path="res://Autoloads/BeatManager/GameBeatInfo.gd" id="1_vsp5q"]
+
+[sub_resource type="Gradient" id="Gradient_f6sos"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.188356, 0.842466, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vcwk0"]
+gradient = SubResource("Gradient_f6sos")
+
+[resource]
+script = ExtResource("1_vsp5q")
+beats_per_minute = 170
+beat_width = 226
+display_offset = 0.0
+display_radius = 4.0
+time_to_sweet_spot = 4.5
+skin_width = 6.0
+sweet_spot_width = 2.0
+gradient = SubResource("GradientTexture1D_vcwk0")

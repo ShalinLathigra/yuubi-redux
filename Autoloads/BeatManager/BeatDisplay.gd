@@ -40,7 +40,7 @@ func _draw() -> void:
 
 		# Draw the background
 		var rad: float = stats.display_radius + stats.skin_width * 2.0
-		rad *= float((i % 2)) * 0.5 + 0.5
+		rad *= float((i % 2)) * 0.25 + 0.75
 		var colour: Color = Color.DARK_GRAY if t < 0.5 else Color.BLACK
 		draw_circle(origin, rad, colour)
 		#draw_rect(Rect2(Vector2(x-4.5,y-27.5), Vector2(9,55)), Color.WHITE)
@@ -50,6 +50,6 @@ func _draw() -> void:
 		var trailing_edge = Vector2.RIGHT * converted_rate * stats.beat_width
 		if dbg:
 			draw_line(origin - leading_edge, origin - leading_edge + trailing_edge, Color.YELLOW, 5)
-			for j in range(i + 1):
-				draw_circle(origin + Vector2.DOWN * 20 * j, 5, Color.YELLOW)
+			#for j in range(i + 1):
+				#draw_circle(origin + Vector2.DOWN * 20 * j, 5, Color.YELLOW)
 

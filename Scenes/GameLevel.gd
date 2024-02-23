@@ -37,7 +37,7 @@ func _ready() -> void:
 	player.grid_pos = Vector2i(0,1)
 	player.position = grid.map_to_local(player.grid_pos)
 
-func handle_input(input: String, time: int, is_good: bool):
+func handle_input(input: String, _time: int, _is_good: bool):
 	var new_action: Action
 	#if dbg: prints(Time.get_ticks_msec(), name, input, ":", time, "-", is_good)
 	if input in ["UP", "DOWN"]:
@@ -45,8 +45,13 @@ func handle_input(input: String, time: int, is_good: bool):
 		new_action = ActionFactory.PlayerMove(player, rock, grid, displacement)
 	elif input == "THROW":
 		new_action = ActionFactory.PlayerThrow(player, rock, grid)
-	elif input == "RETRIEVE":
+	elif input == "FETCH":
 		new_action = ActionFactory.PlayerFetch(player, rock, grid)
+	elif input == "BEAT":
+		new_action = ActionFactory.BasicRest()
+		# Do the effects that should take place during this dead time here
+		# Maybe have a running tally at the end of how many of these were
+		# done?
 	if not new_action:
 		return
 	if len(actions) < 2:
@@ -59,24 +64,35 @@ func handle_input(input: String, time: int, is_good: bool):
 	started = true
 
 func _process(_delta: float) -> void:
-	if len(actions) <= 0: return
-	if not actions[0].is_started:
-		for action in actions:
-			if action.is_valid():
-				action.enter()
-				return
+	if len(actions) > 0:
+		if not actions[0].is_started:
+			for action in actions:
+				if action.is_valid():
+					action.enter()
+					return
+				actions.pop_front()
+			if len(actions) <= 0: return
+		actions[0].do()
+		if actions[0].is_finished:
 			actions.pop_front()
-		if len(actions) <= 0: return
-	actions[0].do()
-	if actions[0].is_finished:
-		actions.pop_front()
 
-func _physics_process(_delta: float) -> void:
-		for enemy in enemies:
-			if rock.is_running() && enemy.position.distance_squared_to(rock.position) <= pow(64, 2):
-				remove_enemy(enemy)
-				enemy.call_deferred("queue_free")
-			enemy.do()
+	for enemy in enemies:
+		if rock.is_running() && rock.live && enemy.position.distance_squared_to(rock.position) <= pow(64, 2):
+			# TODO: Handle the rock hitting something here, should bounce back to the nearest tile
+			# Attach a flag to the rock if on a perfect beat! Or to the current action!
+			var old_action = actions[0]
+			rock.tween.stop()
+			rock.grid_pos = grid.local_to_map(rock.position)
+			old_action.call_deferred("queue_free")
+			if rock.grid_pos.x > 2:
+				actions[0] = ActionFactory.BasicMove(rock\
+					, grid\
+					, Vector2i.LEFT)
+			else:
+				actions[0] = ActionFactory.PlayerFetch(player, rock, grid)
+
+			remove_enemy(enemy)
+		enemy.do()
 
 func handle_game_beat() -> void:
 	if not started: return
@@ -86,15 +102,17 @@ func handle_game_beat() -> void:
 	# So, how is this part supposed to work?
 	# 5 lanes is too many to just throw shit in. Need to
 	if elapsed_beats % 18 == 0:
-		add_enemy(create_juking_enemy(Vector2i(12, randi_range(2, 4))))
+		add_enemy(create_juking_enemy(Vector2i(randi_range(12, 14), randi_range(2, 4))))
 	elif elapsed_beats % 12 == 0:
-		add_enemy(create_staggered_enemy(Vector2i(12, randi_range(2, 5))))
+		add_enemy(create_staggered_enemy(Vector2i(randi_range(12, 14), randi_range(2, 5))))
 	elif elapsed_beats % 6 == 0:
-		add_enemy(create_basic_enemy(Vector2i(12, randi_range(1, 5))))
+		add_enemy(create_basic_enemy(Vector2i(randi_range(12, 14), randi_range(1, 5))))
 	elapsed_beats += 1
 
 func remove_enemy(enemy: Enemy2D):
 	enemies.remove_at(enemies.find(enemy))
+	enemy.tween.stop()
+	enemy.call_deferred("queue_free")
 
 func add_enemy(enemy: Enemy2D):
 	enemies.push_back(enemy)

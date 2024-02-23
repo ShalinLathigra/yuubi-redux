@@ -8,9 +8,9 @@ var start_events: Callable
 var finish_events: Callable
 
 
-func _init(vc: Callable=Callable(func(): return)\
-		, se: Callable=Callable(func(): return)\
-		, fe: Callable=Callable(func(): return)) -> void:
+func _init(vc: Callable=Callable(func(): return false)\
+		, se: Callable=Callable(func(): return false)\
+		, fe: Callable=Callable(func(): return false)) -> void:
 	is_started = false
 	is_finished = false
 	valid_checker = vc

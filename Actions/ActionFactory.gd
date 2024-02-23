@@ -17,7 +17,8 @@ static func PlayerThrow(player: Entity2D\
 			, Vector2i.RIGHT * 4\
 			, func(): return rock.visible == false\
 					&& player.is_running() == false\
-			, Helpers.snap_to_entity_and_enable.bind( rock, player, grid ))
+			, Helpers.snap_to_entity_and_enable.bind( rock, player, grid )\
+			, func(): rock.live = false)
 
 static func PlayerFetch(player: Entity2D\
 		, rock: Entity2D\
@@ -25,24 +26,25 @@ static func PlayerFetch(player: Entity2D\
 	return MoveAction.new(rock\
 			, grid\
 			, Vector2i.RIGHT * -4\
-			, func(): return rock.visible == true\
+			, func(): return rock.visible == true && rock.grid_pos.y == player.grid_pos.y\
 			, func(): return\
 			, func(): rock.visible = false)
 
 static func BasicMove(subject: Entity2D\
 		, grid: Grid\
-		, displacement: Vector2i) -> Action:
+		, displacement: Vector2i\
+		, validity_checker: Callable=Callable(func(): return true)) -> Action:
 	return MoveAction.new(subject\
 			, grid\
-			, displacement)
+			, displacement, validity_checker)
 
 static func BasicRest() -> Action:
-	return Action.new()
+	return Action.new(func(): return true)
 
-static func BatchRest(subject: Entity2D, count: int) -> Array[Action]:
+static func BatchRest(count: int) -> Array[Action]:
 	var ret: Array[Action] = []
 	for i in count:
-		ret.append(Action.new())
+		ret.append(Action.new(func(): return true))
 	return ret
 
 static func EnemyActionsFromSequence(subject: Entity2D\
@@ -51,7 +53,7 @@ static func EnemyActionsFromSequence(subject: Entity2D\
 	var ret: Array[Action] = []
 	for action in sequence:
 		match action["action"]:
-			"Rest": ret.append_array(BatchRest(subject, action["data"] as int))
+			"Rest": ret.append_array(BatchRest(action["data"] as int))
 			"Move": ret.append(BasicMove(subject, grid, Vector2i(action["data"]["x"] as int, action["data"]["y"] as int)))
 		print(ret)
 	return ret
