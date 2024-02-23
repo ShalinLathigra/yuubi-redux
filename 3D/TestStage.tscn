@@ -1,0 +1,214 @@
+[gd_scene load_steps=27 format=3 uid="uid://bxtycqilfagb"]
+
+[ext_resource type="Script" path="res://3D/TestStage.gd" id="1_4rqtg"]
+[ext_resource type="Texture2D" uid="uid://bu3w77wmw4fsf" path="res://Art/icon.svg" id="1_v60yh"]
+[ext_resource type="Script" path="res://3D/Player/PlayerMover.gd" id="3_cnbyk"]
+[ext_resource type="Texture2D" uid="uid://nniw2ef5fb0j" path="res://Art/despair.svg" id="4_o76qx"]
+[ext_resource type="Texture2D" uid="uid://bd6t7c6od612k" path="res://Art/discobolus.svg" id="4_vg26d"]
+[ext_resource type="Texture2D" uid="uid://cukbc7rc4eit2" path="res://Art/acrobatic.svg" id="5_07tsu"]
+[ext_resource type="Texture2D" uid="uid://crgn5rmd7r5xe" path="res://Art/frisbee.svg" id="5_bk7q7"]
+[ext_resource type="Texture2D" uid="uid://dfd3t4u40wehx" path="res://Art/muscle-up.svg" id="5_h5tdh"]
+[ext_resource type="Script" path="res://3D/Player/Player.gd" id="5_vv780"]
+[ext_resource type="Texture2D" uid="uid://dsdipcw4brq67" path="res://Art/walk.svg" id="6_5twe6"]
+[ext_resource type="Script" path="res://3D/Player/Attacker/ball.gd" id="6_kh0c5"]
+[ext_resource type="Script" path="res://3D/Player/PlayerAttacker.gd" id="8_fdpaj"]
+[ext_resource type="Script" path="res://3D/ProjectileBag.gd" id="12_06572"]
+[ext_resource type="Script" path="res://3D/Enemy.gd" id="12_qei32"]
+[ext_resource type="Script" path="res://3D/BasicMover.gd" id="14_huf8f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_faex5"]
+albedo_texture = ExtResource("1_v60yh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rokkx"]
+shading_mode = 0
+albedo_texture = ExtResource("1_v60yh")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ge7u0"]
+material = SubResource("StandardMaterial3D_rokkx")
+size = Vector2(20, 8)
+orientation = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_1rame"]
+material = SubResource("StandardMaterial3D_rokkx")
+size = Vector2(20, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hx08o"]
+shading_mode = 0
+albedo_texture = ExtResource("1_v60yh")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uxgwx"]
+material = SubResource("StandardMaterial3D_hx08o")
+size = Vector2(1.28, 1.28)
+
+[sub_resource type="MeshLibrary" id="MeshLibrary_smawf"]
+item/0/name = "Tile"
+item/0/mesh = SubResource("PlaneMesh_uxgwx")
+item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/shapes = []
+item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/navigation_layers = 1
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3h2iq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_5twe6")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_bk7q7")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 0.0
+}]
+
+[sub_resource type="PackedScene" id="PackedScene_rype7"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Ball", "AnimatedSprite3D", "Projectile", "transform", "sorting_offset", "offset", "modulate", "pixel_size", "double_sided", "texture_filter", "sprite_frames", "animation", "script"),
+"node_count": 1,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 10, 3, 0, 4, 1, 5, 2, 6, 3, 7, 4, 8, 5, 9, 6, 10, 7, 11, 8, 12, 9, 1, 2),
+"variants": [Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0), -1.0, Vector2(0, 24), Color(0.666667, 0.643137, 0, 1), 0.05, false, 0, SubResource("SpriteFrames_3h2iq"), &"Move", ExtResource("6_kh0c5")],
+"version": 3
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_34lj7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_5twe6")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_bk7q7")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 0.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w7bkk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_h5tdh")
+}],
+"loop": true,
+"name": &"Catch",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_o76qx")
+}],
+"loop": true,
+"name": &"FollowThrough",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_5twe6")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_07tsu")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vg26d")
+}],
+"loop": true,
+"name": &"Throw",
+"speed": 0.0
+}]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_4rqtg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.961565, 0.0541644, -0.269184, 0.102305, 0.839088, 0.534289, 0.254808, -0.541292, 0.801296, -5.68192, 7.88217, 10.7397)
+fov = 36.9453
+size = 9.31922
+
+[node name="Ground" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.799201)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.96125)
+material_override = SubResource("StandardMaterial3D_faex5")
+mesh = SubResource("QuadMesh_ge7u0")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(0.998143, 0, 0, 0, 0.998143, 0, 0, 0, 0.998143, 0, 2, -2)
+mesh = SubResource("QuadMesh_1rame")
+skeleton = NodePath("../..")
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.449118, 0)
+mesh_library = SubResource("MeshLibrary_smawf")
+cell_size = Vector3(1.28, 1.28, 1.28)
+data = {
+"cells": PackedInt32Array(65529, 65534, 0, 65529, 0, 0, 65529, 65535, 0, 65531, 0, 0, 65531, 65535, 0, 65531, 65534, 0, 65532, 0, 0, 65532, 65535, 0, 65532, 65534, 0, 65533, 65534, 0, 65534, 65534, 0, 65534, 65535, 0, 65533, 65535, 0, 65533, 0, 0, 65535, 0, 0, 65534, 0, 0, 0, 0, 0, 1, 0, 0, 0, 65535, 0, 65535, 65535, 0, 65535, 65534, 0, 0, 65534, 0, 1, 65534, 0, 1, 65535, 0, 4, 65535, 0, 4, 0, 0, 3, 0, 0, 2, 0, 0, 2, 65535, 0, 3, 65535, 0, 4, 65534, 0, 3, 65534, 0, 2, 65534, 0, 65531, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 3, 1, 0, 4, 1, 0, 2, 1, 0, 1, 1, 0, 0, 1, 0, 65530, 1, 0, 65530, 0, 0, 65530, 65535, 0, 65530, 65534, 0, 65529, 1, 0)
+}
+
+[node name="EntityGroup" type="Node" parent="."]
+
+[node name="ProjectileBag" type="Node" parent="EntityGroup"]
+script = ExtResource("12_06572")
+prefab = SubResource("PackedScene_rype7")
+
+[node name="Enemy" type="AnimatedSprite3D" parent="EntityGroup" groups=["Entity"]]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 5.76, 0.64, -0.64)
+offset = Vector2(0, 24)
+flip_h = true
+modulate = Color(0.666667, 0.0156863, 0, 1)
+pixel_size = 0.05
+double_sided = false
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_34lj7")
+animation = &"Idle"
+script = ExtResource("12_qei32")
+
+[node name="Mover" type="Node" parent="EntityGroup/Enemy"]
+script = ExtResource("14_huf8f")
+
+[node name="Player" type="AnimatedSprite3D" parent="EntityGroup" groups=["Entity", "Player"]]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -8.32, 0.64, -0.64)
+offset = Vector2(0, 24)
+modulate = Color(0, 0.654902, 0.203922, 1)
+pixel_size = 0.05
+double_sided = false
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_w7bkk")
+animation = &"Throw"
+script = ExtResource("5_vv780")
+
+[node name="Attacker" type="Node" parent="EntityGroup/Player" node_paths=PackedStringArray("projectile_bag")]
+script = ExtResource("8_fdpaj")
+projectile_bag = NodePath("../../ProjectileBag")
+
+[node name="Mover" type="Node" parent="EntityGroup/Player"]
+script = ExtResource("3_cnbyk")
+hop_height = 0.25
+beat_duration_ratio = 0.34

@@ -1,0 +1,155 @@
+[gd_scene load_steps=14 format=3 uid="uid://crry30umvecm"]
+
+[ext_resource type="Script" path="res://3D/BetterBeatTracker/BetterBeatDisplay.gd" id="1_1civh"]
+[ext_resource type="Shader" path="res://3D/OldBeatTracker/SimpleBeatDisplay.gdshader" id="1_uu5um"]
+[ext_resource type="Texture2D" uid="uid://bu3w77wmw4fsf" path="res://Art/icon.svg" id="2_8v8od"]
+[ext_resource type="Script" path="res://3D/OldBeatTracker/SimpleBeatDisplay.gd" id="3_omyyo"]
+[ext_resource type="Script" path="res://3D/BetterBeatTracker/BetterBeatTracker.gd" id="4_1cqg3"]
+[ext_resource type="Script" path="res://3D/BetterBeatTracker/Line2D.gd" id="6_ycu56"]
+[ext_resource type="Shader" path="res://Art/BlankOut.gdshader" id="7_b1s2r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5d7xn"]
+resource_local_to_scene = true
+shader = ExtResource("7_b1s2r")
+shader_parameter/edge = 1.0
+
+[sub_resource type="Shader" id="Shader_hnr7x"]
+code = "shader_type canvas_item;
+
+uniform float edge: hint_range(0.0, 1.0, 0.01);
+
+varying vec4 color;
+void vertex() {
+	color = COLOR;
+	// Called for every vertex the material is visible on.
+}
+void fragment() {
+	float x = UV.x - 0.5;
+	float y = UV.y - 0.5;
+	float cutoff = step(x*x + y*y, edge / 4.0);
+	COLOR = vec4(1,1,1,color.a) * cutoff;
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ilmxs"]
+shader = SubResource("Shader_hnr7x")
+shader_parameter/edge = 1.0
+
+[sub_resource type="PackedScene" id="PackedScene_eghsl"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Tick", "Node2D", "Label", "Label", "offset_left", "offset_top", "offset_right", "offset_bottom", "theme_override_font_sizes/font_size", "text", "Sprite", "Sprite2D", "self_modulate", "material", "position", "texture", "region_enabled", "region_rect", "EndPoint3", "Sprite2D", "show_behind_parent", "material", "scale", "texture", "region_enabled", "region_rect"),
+"node_count": 4,
+"node_paths": [NodePath("."), NodePath("."), NodePath("./Sprite")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 0, 0, 1073741824, 0, 3, 2, -1, 6, 4, 0, 5, 1, 6, 2, 7, 3, 8, 4, 9, 5, 0, 1073741825, 0, 11, 10, -1, 6, 12, 6, 13, 7, 14, 8, 15, 9, 16, 10, 17, 11, 0, 1073741826, 0, 19, 18, -1, 6, 20, 12, 21, 13, 22, 14, 23, 15, 24, 16, 25, 17, 0),
+"variants": [24.0, 100.0, 248.0, 368.0, 196, "00
+", Color(0.682353, 0.682353, 0.67451, 1), SubResource("ShaderMaterial_5d7xn"), Vector2(36, 0), ExtResource("2_8v8od"), true, Rect2(0, 0, 128, 128), true, SubResource("ShaderMaterial_ilmxs"), Vector2(1.24999, 1.24999), ExtResource("2_8v8od"), true, Rect2(0, 0, 128, 128)],
+"version": 3
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2xym"]
+shader = ExtResource("7_b1s2r")
+shader_parameter/edge = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8mlir"]
+shader = ExtResource("1_uu5um")
+shader_parameter/t = 1.0
+shader_parameter/edge = 0.1
+shader_parameter/edge_offset = 7.4506e-09
+
+[node name="BetterBeatTracker" type="CanvasLayer"]
+script = ExtResource("4_1cqg3")
+ms_to_reach_target = 2500
+ms_per_beat = 500
+
+[node name="BetterBeatDisplay" type="Node2D" parent="."]
+script = ExtResource("1_1civh")
+tick_sprite_default = SubResource("PackedScene_eghsl")
+
+[node name="Line2D" type="Line2D" parent="BetterBeatDisplay" node_paths=PackedStringArray("start_point", "end_point")]
+points = PackedVector2Array(843, 53, 453, 39)
+default_color = Color(0.0862745, 0, 0.00784314, 1)
+script = ExtResource("6_ycu56")
+start_point = NodePath("../StartPoint")
+end_point = NodePath("../EndPoint")
+
+[node name="StartPoint" type="Sprite2D" parent="BetterBeatDisplay"]
+self_modulate = Color(0.0196078, 0.239216, 0, 1)
+material = SubResource("ShaderMaterial_h2xym")
+position = Vector2(843, 53)
+scale = Vector2(0.125, 0.25)
+texture = ExtResource("2_8v8od")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="EndPoint" type="Sprite2D" parent="BetterBeatDisplay"]
+self_modulate = Color(0.109804, 0.160784, 0.623529, 1)
+material = SubResource("ShaderMaterial_h2xym")
+position = Vector2(453, 39)
+scale = Vector2(0.125, 0.25)
+texture = ExtResource("2_8v8od")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="EndPoint2" type="Sprite2D" parent="BetterBeatDisplay/EndPoint"]
+self_modulate = Color(0.666667, 0.666667, 0.666667, 1)
+show_behind_parent = true
+material = SubResource("ShaderMaterial_h2xym")
+scale = Vector2(1.90476, 1.90476)
+texture = ExtResource("2_8v8od")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="EndPoint3" type="Sprite2D" parent="BetterBeatDisplay/EndPoint"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+material = SubResource("ShaderMaterial_h2xym")
+scale = Vector2(1.52381, 1.52381)
+texture = ExtResource("2_8v8od")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 128)
+
+[node name="SimpleBeatDisplay" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color(0.247059, 0.247059, 0.247059, 1)
+material = SubResource("ShaderMaterial_8mlir")
+offset_left = 1005.0
+offset_top = 379.0
+offset_right = 1133.0
+offset_bottom = 635.0
+scale = Vector2(0.997518, 1)
+pivot_offset = Vector2(64, 128)
+texture = ExtResource("2_8v8od")
+script = ExtResource("3_omyyo")
+
+[node name="LastBeatLabel" type="Label" parent="SimpleBeatDisplay"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 102.0
+grow_vertical = 0
+text = "Last: %d"
+
+[node name="CurrentLabel" type="Label" parent="SimpleBeatDisplay"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 102.0
+offset_bottom = 11.5
+grow_vertical = 2
+pivot_offset = Vector2(46, 12.5)
+text = "Now: %d"
+
+[node name="NextBeatLabel" type="Label" parent="SimpleBeatDisplay"]
+layout_mode = 0
+offset_right = 107.0
+offset_bottom = 23.0
+text = "Next: %d"

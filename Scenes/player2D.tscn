@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://3fvuq5ghlput"]
+
+[ext_resource type="Script" path="res://Scenes/Player2D.gd" id="1_2ncp4"]
+[ext_resource type="Texture2D" uid="uid://dsdipcw4brq67" path="res://Art/walk.svg" id="2_jbui1"]
+
+[sub_resource type="Animation" id="Animation_tdkdu"]
+resource_name = "new_animation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y0xaf"]
+_data = {
+"new_animation": SubResource("Animation_tdkdu")
+}
+
+[node name="Player" type="Node2D" groups=["Entity"]]
+script = ExtResource("1_2ncp4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y0xaf")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_jbui1")
