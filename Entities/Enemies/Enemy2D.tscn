@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bfwk4xsl207ky"]
 
-[ext_resource type="Script" path="res://Scenes/Enemy2D.gd" id="1_cl7mi"]
+[ext_resource type="Script" path="res://Entities/Enemies/Enemy2D.gd" id="1_cl7mi"]
 [ext_resource type="Texture2D" uid="uid://dsdipcw4brq67" path="res://Art/walk.svg" id="2_u4c7m"]
 
 [node name="Target 1" type="Node2D" node_paths=PackedStringArray("sprite") groups=["Entity", "Hittable"]]

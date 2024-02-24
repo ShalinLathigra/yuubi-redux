@@ -1,5 +1,15 @@
+################################################################################
+#
+# Implementation of the Factory Pattern, contains helper methods for creating
+# actions used by the player or general entities. This is expected to grow, may
+# in future be split up into player/general actions or something.
+# This is meant to simplify the creation of actions for the main game.
+#
+################################################################################
+
 class_name ActionFactory
 
+# PLAYER ACTIONS
 static func PlayerMove(player: Entity2D\
 		, rock: Entity2D\
 		, grid: Grid\
@@ -30,6 +40,7 @@ static func PlayerFetch(player: Entity2D\
 			, func(): return\
 			, func(): rock.visible = false)
 
+# GENERAL ACTIONS
 static func BasicMove(subject: Entity2D\
 		, grid: Grid\
 		, displacement: Vector2i\
@@ -45,15 +56,4 @@ static func BatchRest(count: int) -> Array[Action]:
 	var ret: Array[Action] = []
 	for i in count:
 		ret.append(Action.new(func(): return true))
-	return ret
-
-static func EnemyActionsFromSequence(subject: Entity2D\
-		, grid: Grid\
-		, sequence: Array) -> Array[Action]:
-	var ret: Array[Action] = []
-	for action in sequence:
-		match action["action"]:
-			"Rest": ret.append_array(BatchRest(action["data"] as int))
-			"Move": ret.append(BasicMove(subject, grid, Vector2i(action["data"]["x"] as int, action["data"]["y"] as int)))
-		print(ret)
 	return ret

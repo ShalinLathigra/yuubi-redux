@@ -18,7 +18,6 @@ config/icon="res://Art/icon.svg"
 [autoload]
 
 InputReceiver="*res://Autoloads/InputReceiver.gd"
-BeatManager="*res://Autoloads/BeatManager/beat_manager.tscn"
 Context="*res://Autoloads/Context.gd"
 
 [dotnet]

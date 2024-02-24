@@ -1,3 +1,14 @@
+################################################################################
+#
+# Current iteration of the Beat UI. Known desync issues that need to be addressed.
+# This object will receive a few parameters on game start, then will calculate
+# the Dots and lines to be drawn accordingly.
+#
+# May want to move to a more "tangible" method in the future to simplify the Beat
+# Manager's work determining beat validity.
+#
+################################################################################
+
 extends Node2D
 
 var num_beats: int

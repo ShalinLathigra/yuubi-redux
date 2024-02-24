@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2gybd8kwb7n1"]
+[gd_scene load_steps=3 format=3 uid="uid://cwcyh0now15y7"]
 
-[ext_resource type="Script" path="res://Scenes/SimpleMovingEnemy2D.gd" id="1_ljgh0"]
+[ext_resource type="Script" path="res://Entities/Enemies/ScriptedEnemy2D.gd" id="1_ljgh0"]
 [ext_resource type="Texture2D" uid="uid://dsdipcw4brq67" path="res://Art/walk.svg" id="2_03g6j"]
 
-[node name="Simple Mover 1" type="Node2D" groups=["Entity", "Hittable"]]
+[node name="ScriptedEntity2D" type="Node2D" groups=["Entity", "Hittable"]]
+position = Vector2(703, 576)
 script = ExtResource("1_ljgh0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

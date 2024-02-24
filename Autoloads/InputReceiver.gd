@@ -1,3 +1,9 @@
+################################################################################
+#
+# Simple passthrough of player input, associates a command with time.
+#
+################################################################################
+
 extends Node
 
 signal on_input(input, time)

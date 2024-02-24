@@ -1,3 +1,13 @@
+################################################################################
+#
+# Subclass of action, more or less the workhorse of the game at this point.
+# A MoveAction describes some "subject" moving "displacement" units along a "grid".
+#
+# Used by enemies and player alike to handle almost all motion.
+# Finishes once the tween is done running, or if the tween is deleted.
+#
+################################################################################
+
 class_name MoveAction extends Action
 
 var subject: Entity2D
@@ -20,9 +30,6 @@ func enter() -> void:
 func do() -> void:
 	if not subject.tween or not subject.tween.is_running():
 		exit()
-
-func exit() -> void:
-	super.exit()
 
 func _to_string() -> String:
 	return "Move: {subject} by {displacement}".format({"subject": subject.name, "displacement": displacement})

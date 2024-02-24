@@ -1,9 +1,16 @@
-##########################################
-# Game Level
-# Responsible for figuring out entity positions as they update on beat
-# Responsible for handling player input
-# Responsible for handling collision detection between rocks and entities
-##########################################
+################################################################################
+#
+# Testing Ground. A lot of code here is tightly coupled to the specific Scene
+# layout it was created for, before this is finished it must be broken down
+# into components for handling i.e.:
+# 	- Player Input queueing on beat
+#	- Triggering effects in response to combo
+#	- Enemy/Entity scripted movement
+#	- Collisions
+#	- Spawning enemies
+#
+################################################################################
+
 extends Node2D
 
 @export var dbg: bool
@@ -19,8 +26,8 @@ var elapsed_beats: int
 var started: bool
 
 func _ready() -> void:
-	BeatManager.on_valid_beat.connect(handle_input)
-	BeatManager.on_game_beat.connect(handle_game_beat)
+	Context.on_valid_beat.connect(handle_input)
+	Context.on_game_beat.connect(handle_game_beat)
 
 	grid = $TileMap as Grid
 	player = $Player as Player2D
@@ -61,7 +68,9 @@ func handle_input(input: String, _time: int, _is_good: bool):
 		actions[1] = new_action
 	add_child(new_action)
 	#print(actions)
-	started = true
+	if not started:
+		$BackgroundAudioPlayer.play(0)
+		started = true
 
 func _process(_delta: float) -> void:
 	if len(actions) > 0:
@@ -76,23 +85,26 @@ func _process(_delta: float) -> void:
 		if actions[0].is_finished:
 			actions.pop_front()
 
+	var slain_enemies = 0
+	var collision = false
 	for enemy in enemies:
 		if rock.is_running() && rock.live && enemy.position.distance_squared_to(rock.position) <= pow(64, 2):
-			# TODO: Handle the rock hitting something here, should bounce back to the nearest tile
-			# Attach a flag to the rock if on a perfect beat! Or to the current action!
-			var old_action = actions[0]
-			rock.tween.stop()
-			rock.grid_pos = grid.local_to_map(rock.position)
-			old_action.call_deferred("queue_free")
-			if rock.grid_pos.x > 2:
-				actions[0] = ActionFactory.BasicMove(rock\
-					, grid\
-					, Vector2i.LEFT)
-			else:
-				actions[0] = ActionFactory.PlayerFetch(player, rock, grid)
-
+			collision = true
+			slain_enemies += 1
 			remove_enemy(enemy)
 		enemy.do()
+	if collision:
+		var old_action = actions[0]
+		rock.tween.stop()
+		rock.grid_pos.x = grid.local_to_map(rock.position).x
+		old_action.call_deferred("queue_free")
+		if rock.grid_pos.x > 1:
+			actions[0] = ActionFactory.BasicMove(rock\
+				, grid\
+				, Vector2i.LEFT)
+		else:
+			actions[0] = ActionFactory.PlayerFetch(player, rock, grid)
+	Context.enemy_popped.emit(slain_enemies)
 
 func handle_game_beat() -> void:
 	if not started: return

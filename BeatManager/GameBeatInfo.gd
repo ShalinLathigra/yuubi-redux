@@ -1,3 +1,15 @@
+################################################################################
+#
+# Data class containing all of the info relating to the frequency with which
+# beats will come. In theory, changing this will cause effects to be felt across
+# all other listeners.
+#
+# May need signal here to be emitted whenever options here change to inform
+# rest of the game to retrieve the correct values. Maybe... Or they take directly
+# from here?
+#
+################################################################################
+
 class_name GameBeatInfo extends Resource
 
 # Functional Params

@@ -1,3 +1,17 @@
+################################################################################
+#
+# Implementation of the Command pattern. Can be provided with functions (anonymous
+# or otherwise) to handle checking if the action is valid or adding onstart/onfinish
+# operations.
+#
+# By default, this is a dumb object and will just return. Subclasses provide
+# actual functionality.
+#
+# See res://Actions/ActionFactory.gd for information on existing actions
+# and some ways they are used currently.
+#
+################################################################################
+
 class_name Action extends Node
 
 var is_started: bool # indicates whether a state has started the "enter" steps

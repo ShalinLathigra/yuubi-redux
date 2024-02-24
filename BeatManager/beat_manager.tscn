@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=3 uid="uid://b6qxvfmw6hnlo"]
 
-[ext_resource type="Script" path="res://Autoloads/BeatManager/BeatManager.gd" id="1_7v06m"]
-[ext_resource type="Resource" uid="uid://kjs8n50inteh" path="res://Autoloads/BeatManager/beat_manager.tres" id="2_3esds"]
-[ext_resource type="Script" path="res://Autoloads/BeatManager/BeatDisplay.gd" id="3_1bcbb"]
+[ext_resource type="Script" path="res://BeatManager/BeatManager.gd" id="1_7v06m"]
+[ext_resource type="Resource" uid="uid://kjs8n50inteh" path="res://BeatManager/beat_manager.tres" id="2_3esds"]
+[ext_resource type="Script" path="res://BeatManager/BeatDisplay.gd" id="3_1bcbb"]
 [ext_resource type="Shader" path="res://Art/BlankOut.gdshader" id="4_dreh5"]
 [ext_resource type="AudioStream" uid="uid://27xxqchchlx6" path="res://Art/8-Bit - GUI Blip 001.wav" id="4_lg8ix"]
-[ext_resource type="AudioStream" uid="uid://cwtojtoc4ojyp" path="res://Art/LOOP_Spikes & Slimes.wav" id="6_6pb44"]
+[ext_resource type="Script" path="res://BeatManager/ComboLabel.gd" id="6_n4rd2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i61cq"]
 size = Vector2(1152, 40)
@@ -210,7 +210,16 @@ shader_parameter/edge = 1.0
 script = ExtResource("1_7v06m")
 stats = ExtResource("2_3esds")
 bounds = SubResource("RectangleShape2D_i61cq")
-display_offset = Vector2(576, 64)
+display_offset = Vector2(576, 48)
+
+[node name="ComboLabel" type="Label" parent="."]
+offset_left = 427.0
+offset_top = 93.0
+offset_right = 758.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 40
+text = "COMBO: %d | %d"
+script = ExtResource("6_n4rd2")
 
 [node name="Display" type="Node2D" parent="."]
 script = ExtResource("3_1bcbb")
@@ -221,7 +230,7 @@ libraries = {
 }
 
 [node name="BadParticles" type="GPUParticles2D" parent="AnimationPlayer"]
-position = Vector2(576, 64)
+position = Vector2(576, 48)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_6qigm")
 lifetime = 0.2
@@ -229,7 +238,7 @@ one_shot = true
 explosiveness = 0.88
 
 [node name="GoodParticles" type="GPUParticles2D" parent="AnimationPlayer"]
-position = Vector2(576, 64)
+position = Vector2(576, 48)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_pvfil")
 lifetime = 0.25
@@ -239,12 +248,8 @@ explosiveness = 0.88
 [node name="FlashSprite" type="Sprite2D" parent="AnimationPlayer"]
 self_modulate = Color(0, 0.886275, 0.101961, 1)
 material = SubResource("ShaderMaterial_018qi")
-position = Vector2(577, 64)
+position = Vector2(577, 48)
 scale = Vector2(1e-05, 1e-05)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer"]
-volume_db = -14.038
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_6pb44")
-volume_db = -27.879
+volume_db = -28.0

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GameBeatInfo" load_steps=4 format=3 uid="uid://kjs8n50inteh"]
 
-[ext_resource type="Script" path="res://Autoloads/BeatManager/GameBeatInfo.gd" id="1_vsp5q"]
+[ext_resource type="Script" path="res://BeatManager/GameBeatInfo.gd" id="1_vsp5q"]
 
 [sub_resource type="Gradient" id="Gradient_f6sos"]
 interpolation_mode = 2
@@ -13,7 +13,7 @@ gradient = SubResource("Gradient_f6sos")
 [resource]
 script = ExtResource("1_vsp5q")
 beats_per_minute = 170
-beat_width = 226
+beat_width = 200
 display_offset = 0.0
 display_radius = 4.0
 time_to_sweet_spot = 4.5

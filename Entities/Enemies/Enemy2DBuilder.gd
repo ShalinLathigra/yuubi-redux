@@ -1,3 +1,15 @@
+################################################################################
+#
+# Implementation of the Builder Pattern.
+# Convenience class to handle instantiating a new enemy. Usage is as follows:
+# 1. Create new Enemy2D Builder
+# 2. Assign order of actions
+# 3. Call build to return the enemy
+#
+# See "test level" for examples
+#
+################################################################################
+
 class_name Enemy2DBuilder
 
 var grid: Grid
@@ -6,7 +18,7 @@ var actions: Array[Action]
 
 var enemy: Enemy2D
 
-static var enemy_scene: PackedScene = preload("res://Scenes/Enemy2D.tscn")
+static var enemy_scene: PackedScene = preload("res://Entities/Enemies/Enemy2D.tscn")
 
 
 func _init(g: Grid, gp: Vector2i) -> void:

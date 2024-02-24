@@ -1,3 +1,11 @@
+################################################################################
+#
+# Simplest Enemy for test purposes, will move forward pausing for (delay_beats)
+# beats between each step. Step can be assigned in the editor or before the
+# node is added to the tree, altering step afterwards will have no effect.
+#
+################################################################################
+
 class_name SimpleMovingEnemy2D extends Enemy2D
 
 @export var step: Vector2i
@@ -13,10 +21,3 @@ func _ready() -> void:
 	for i in range(delay_beats):
 		actions.push_back(Action.new())
 	super._ready()
-
-func handle_game_beat() -> void:
-	super.handle_game_beat()
-	if grid_pos.x <= 0:
-		grid_pos = Vector2i(12, grid_pos.y)
-		position = Context.grid.map_to_local(grid_pos)
-

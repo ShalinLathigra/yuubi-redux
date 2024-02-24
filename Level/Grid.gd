@@ -1,3 +1,11 @@
+################################################################################
+#
+# Responsible for simplifying movement, refers to the globally used "GameBeatInfo"
+# resource to calculate the speed of each tween when moving an object.
+# Essentially serves as the brains for animating all movement dependent on the
+# main grid.
+#
+################################################################################
 class_name Grid extends TileMap
 
 @export var stats: GameBeatInfo
@@ -17,7 +25,7 @@ func move_along_grid(entity: Entity2D, displacement: Vector2i) -> void:
 					.set_trans(Tween.TRANS_CUBIC)
 	entity.tween.tween_property(entity\
 								,"position"\
-								,map_to_local(entity.grid_pos + displacement)\
+								,to_global(map_to_local(entity.grid_pos + displacement))\
 								,0.75 * s_per_beat)
 	entity.tween.tween_property(entity\
 								, "grid_pos"\
@@ -25,4 +33,4 @@ func move_along_grid(entity: Entity2D, displacement: Vector2i) -> void:
 								0)
 
 func center_entity(entity: Entity2D) -> void:
-	entity.position = map_to_local(entity.grid_pos)
+	entity.position = to_global(map_to_local(entity.grid_pos))

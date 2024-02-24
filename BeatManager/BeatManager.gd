@@ -1,7 +1,22 @@
-extends CanvasLayer
+################################################################################
+#
+# Performs the actual calculations for when a beat is good or bad. Listens for
+# input from res://Autoloads/InputReceiver.gd, then will use math to determine:
+# 	- Is this beat within the validity threshold?
+#	- What animation should be played in response?
+#	- Should debug info be displayed?
+#
+# One thought is to switch this up to use actual nodes to represent the dots,
+# This would provide them with a stronger sense of state and should simplify
+# determining repeat inputs within a beat, etc.
+#
+# This jacks in to res://Autoloads/Context.gd for access to signals, in theory
+# could be torn out and replaced, as long as it connects to the same signals we
+# are good.
+#
+################################################################################
 
-signal on_valid_beat(input: String, time: int, is_good: bool)
-signal on_game_beat()
+extends CanvasLayer
 
 @export var dbg: bool
 @export var stats: GameBeatInfo
@@ -51,7 +66,7 @@ func _ready() -> void:
 	beat_timer.tween_callback(
 		func():
 			#prints("Emitting Timer Event")
-			on_game_beat.emit())
+			Context.on_game_beat.emit())
 
 	# initialize display params
 	display = $Display as Node2D
@@ -61,7 +76,6 @@ func handle_input(input: StringName, input_time: int):
 	if not started:
 		started = true
 		start_time_msecs = Time.get_ticks_msec()
-		$AudioStreamPlayer.play()
 
 	if dbg: prints(input, ":", input_time)
 	var t = 0.5
@@ -82,7 +96,7 @@ func handle_input(input: StringName, input_time: int):
 		is_good = true
 
 	# Emit Beat when ready!
-	on_valid_beat.emit(input, input_time, is_good)
+	Context.on_valid_beat.emit(input, input_time, is_good)
 	animation_player.stop()
 	animation_player.play("good_beat" if is_good else "bad_beat")
 	time_of_last_beat = input_time
@@ -102,6 +116,8 @@ func _process(_delta: float) -> void:
 		time_trackers[beat] = t
 	display.queue_redraw()
 
+# Debug info, does not affect the actual sync, just how it looks when debugging.
+# Should just remove this?
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("DEBUG_OFFSET_UP"):
 		stats.display_offset += 12.5
@@ -113,11 +129,3 @@ func _input(event: InputEvent) -> void:
 		dbg = not dbg
 		display.dbg = dbg
 		prints("Toggled Debug:", "ON" if dbg else "OFF")
-
-"""
-Adventure/Kick into warp drive
-Combat/
-	Break through the lines
-	Field Battle?
-
-"""
