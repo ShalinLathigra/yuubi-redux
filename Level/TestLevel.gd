@@ -34,61 +34,18 @@ func _ready() -> void:
 	rock = $Rock as Entity2D
 
 	Context.grid = grid
-
-	var node_arr: Array[Node] = get_tree().get_nodes_in_group("Entity")
-	for node in node_arr:
-		if not node is Entity2D: continue
-		node.grid_pos = grid.local_to_map(node.position)
-		node.position = grid.map_to_local(node.grid_pos)
+	Context.rock = rock
 
 	player.grid_pos = Vector2i(0,1)
 	player.position = grid.map_to_local(player.grid_pos)
 
 func handle_input(input: String, _time: int, _is_good: bool):
-	var new_action: Action
-	#if dbg: prints(Time.get_ticks_msec(), name, input, ":", time, "-", is_good)
-
-	# is the rock thrown out
-	# Add sense of state for entities
-	if rock.visible == true:
-		new_action = ActionFactory.PlayerFetch(player, rock, grid)
-	elif input in ["UP", "DOWN"]:
-		var displacement := Vector2i(0, -1 if input == "UP" else 1)
-		new_action = ActionFactory.PlayerMove(player, rock, grid, displacement)
-	elif input == "THROW":
-		new_action = ActionFactory.PlayerThrow(player, rock, grid)
-	#elif input == "FETCH":
-		#new_action = ActionFactory.PlayerFetch(player, rock, grid)
-	elif input == "BEAT":
-		new_action = ActionFactory.BasicRest()
-		# Do the effects that should take place during this dead time here
-		# Maybe have a running tally at the end of how many of these were
-		# done?
-	if not new_action:
-		return
-	if len(actions) < 2:
-		actions.push_back(new_action)
-	else:
-		remove_child(actions[1])
-		actions[1] = new_action
-	add_child(new_action)
-	print(actions)
 	if not started:
 		$BackgroundAudioPlayer.play(0)
 		started = true
 
 func _process(_delta: float) -> void:
-	if len(actions) > 0:
-		if not actions[0].is_started:
-			for action in actions:
-				if action.is_valid():
-					action.enter()
-					return
-				actions.pop_front()
-			if len(actions) <= 0: return
-		actions[0].do()
-		if actions[0].is_finished:
-			actions.pop_front()
+	player.do()
 
 	var slain_enemies = 0
 	var collision = false
@@ -99,16 +56,7 @@ func _process(_delta: float) -> void:
 			remove_enemy(enemy)
 		enemy.do()
 	if collision:
-		var old_action = actions[0]
-		rock.tween.stop()
-		rock.grid_pos.x = grid.local_to_map(rock.position).x
-		old_action.call_deferred("queue_free")
-		if rock.grid_pos.x > 1:
-			actions[0] = ActionFactory.BasicMove(rock\
-				, grid\
-				, Vector2i.LEFT)
-		else:
-			actions[0] = ActionFactory.PlayerFetch(player, rock, grid)
+		player.handle_rock_collision()
 	Context.enemy_popped.emit(slain_enemies)
 
 func handle_game_beat() -> void:

@@ -1,3 +1,4 @@
+class_name Action extends Node
 ################################################################################
 #
 # Implementation of the Command pattern. Can be provided with functions (anonymous
@@ -12,7 +13,6 @@
 #
 ################################################################################
 
-class_name Action extends Node
 
 var is_started: bool # indicates whether a state has started the "enter" steps
 var is_finished: bool # indicates that the state has finished the "exit" steps
@@ -45,6 +45,9 @@ func do() -> void:
 func exit() -> void:
 	is_finished = true
 	finish_events.call()
+
+func abort() -> void:
+	exit()
 
 func is_valid() -> bool:
 	return valid_checker.call()

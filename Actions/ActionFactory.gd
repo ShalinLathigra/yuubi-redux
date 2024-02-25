@@ -1,3 +1,4 @@
+class_name ActionFactory
 ################################################################################
 #
 # Implementation of the Factory Pattern, contains helper methods for creating
@@ -7,7 +8,6 @@
 #
 ################################################################################
 
-class_name ActionFactory
 
 # PLAYER ACTIONS
 static func PlayerMove(player: Entity2D\
@@ -33,12 +33,9 @@ static func PlayerThrow(player: Entity2D\
 static func PlayerFetch(player: Entity2D\
 		, rock: Entity2D\
 		, grid: Grid) -> Action:
-	return MoveAction.new(rock\
-			, grid\
-			, Vector2i.RIGHT * -4\
-			, func(): return rock.visible == true && rock.grid_pos.y == player.grid_pos.y\
-			, func(): return\
-			, func(): rock.visible = false)
+	return FetchAction.new(rock\
+			, player\
+			, grid)
 
 # GENERAL ACTIONS
 static func BasicMove(subject: Entity2D\

@@ -1,5 +1,3 @@
-class_name MoveAction
-extends Action
 ################################################################################
 #
 # Subclass of action, more or less the workhorse of the game at this point.
@@ -10,31 +8,36 @@ extends Action
 #
 ################################################################################
 
+class_name FetchAction extends Action
 
 var subject: Entity2D
+var ref_entity: Entity2D
 var grid: Grid
-var displacement: Vector2i
 
-func _init(s: Entity2D, g: Grid, d: Vector2i,\
+func _init(s: Entity2D, r: Entity2D, g: Grid,\
 			vc: Callable=Callable(func(): return),\
 			se: Callable=Callable(func(): return),\
 			fe: Callable=Callable(func(): return)) -> void:
 	super._init(vc, se, fe)
 	subject = s
+	ref_entity = r
 	grid = g
-	displacement = d
 
 func enter() -> void:
 	super.enter()
-	grid.move_along_grid(subject, displacement)
-
-func exit() -> void:
-	subject.tween.stop()
-	super.exit()
+	grid.move_along_grid(subject, ref_entity.grid_pos - subject.grid_pos)
 
 func do() -> void:
 	if not subject.tween or not subject.tween.is_running():
 		exit()
 
+func exit() -> void:
+	subject.tween.stop()
+	subject.visible = false
+	super.exit()
+
+func is_valid() -> bool:
+	return subject.visible == true && subject.grid_pos.y == ref_entity.grid_pos.y
+
 func _to_string() -> String:
-	return "Move: {subject} by {displacement}".format({"subject": subject.name, "displacement": displacement})
+	return "Fetch: {subject} to {reference}".format({"subject": subject.name, "reference": ref_entity.name})

@@ -13,3 +13,4 @@ signal on_game_beat()
 signal enemy_popped(num_enemies: int)
 
 var grid: Grid
+var rock: Entity2D

@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cnq56a53y5axb"]
+[gd_scene load_steps=11 format=3 uid="uid://dk8goham4tbla"]
 
 [ext_resource type="Script" path="res://Level/TestLevel.gd" id="1_cey5i"]
 [ext_resource type="Texture2D" uid="uid://bicwoql8dv4ro" path="res://Art/tiles.png" id="2_6fjh8"]
 [ext_resource type="PackedScene" uid="uid://b6qxvfmw6hnlo" path="res://BeatManager/beat_manager.tscn" id="2_m1mxx"]
 [ext_resource type="PackedScene" uid="uid://3fvuq5ghlput" path="res://Entities/player2D.tscn" id="2_q6ogv"]
 [ext_resource type="Script" path="res://Level/Grid.gd" id="3_hdv0v"]
-[ext_resource type="PackedScene" uid="uid://bmq0b0ibqylpk" path="res://Entities/Rock.tscn" id="4_aqdpl"]
+[ext_resource type="PackedScene" uid="uid://csl1yfv7ldur3" path="res://Entities/Rock2D.tscn" id="4_aqdpl"]
 [ext_resource type="Resource" uid="uid://kjs8n50inteh" path="res://BeatManager/beat_manager.tres" id="4_q883l"]
 [ext_resource type="AudioStream" uid="uid://cwtojtoc4ojyp" path="res://Art/LOOP_Spikes & Slimes.wav" id="9_uv3nh"]
 

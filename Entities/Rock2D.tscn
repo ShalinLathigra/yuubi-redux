@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://csl1yfv7ldur3"]
+
+[ext_resource type="Script" path="res://Entities/Entity2D.gd" id="1_uf7ux"]
+[ext_resource type="Texture2D" uid="uid://crgn5rmd7r5xe" path="res://Art/frisbee.svg" id="2_548n1"]
+
+[node name="Rock" type="Node2D" groups=["Entity"]]
+visible = false
+position = Vector2(64, 192)
+script = ExtResource("1_uf7ux")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_548n1")
