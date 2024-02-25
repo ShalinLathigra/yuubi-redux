@@ -47,13 +47,18 @@ func _ready() -> void:
 func handle_input(input: String, _time: int, _is_good: bool):
 	var new_action: Action
 	#if dbg: prints(Time.get_ticks_msec(), name, input, ":", time, "-", is_good)
-	if input in ["UP", "DOWN"]:
+
+	# is the rock thrown out
+	# Add sense of state for entities
+	if rock.visible == true:
+		new_action = ActionFactory.PlayerFetch(player, rock, grid)
+	elif input in ["UP", "DOWN"]:
 		var displacement := Vector2i(0, -1 if input == "UP" else 1)
 		new_action = ActionFactory.PlayerMove(player, rock, grid, displacement)
 	elif input == "THROW":
 		new_action = ActionFactory.PlayerThrow(player, rock, grid)
-	elif input == "FETCH":
-		new_action = ActionFactory.PlayerFetch(player, rock, grid)
+	#elif input == "FETCH":
+		#new_action = ActionFactory.PlayerFetch(player, rock, grid)
 	elif input == "BEAT":
 		new_action = ActionFactory.BasicRest()
 		# Do the effects that should take place during this dead time here
@@ -67,7 +72,7 @@ func handle_input(input: String, _time: int, _is_good: bool):
 		remove_child(actions[1])
 		actions[1] = new_action
 	add_child(new_action)
-	#print(actions)
+	print(actions)
 	if not started:
 		$BackgroundAudioPlayer.play(0)
 		started = true
