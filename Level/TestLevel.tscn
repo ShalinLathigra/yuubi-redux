@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dk8goham4tbla"]
+[gd_scene load_steps=12 format=3 uid="uid://dk8goham4tbla"]
 
 [ext_resource type="Script" path="res://Level/TestLevel.gd" id="1_cey5i"]
 [ext_resource type="Texture2D" uid="uid://bicwoql8dv4ro" path="res://Art/tiles.png" id="2_6fjh8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Level/Grid.gd" id="3_hdv0v"]
 [ext_resource type="PackedScene" uid="uid://csl1yfv7ldur3" path="res://Entities/Rock2D.tscn" id="4_aqdpl"]
 [ext_resource type="Resource" uid="uid://kjs8n50inteh" path="res://BeatManager/beat_manager.tres" id="4_q883l"]
+[ext_resource type="Script" path="res://BeatManager/ComboLabel.gd" id="9_1ef35"]
 [ext_resource type="AudioStream" uid="uid://cwtojtoc4ojyp" path="res://Art/LOOP_Spikes & Slimes.wav" id="9_uv3nh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yll6k"]
@@ -48,5 +49,15 @@ zoom = Vector2(0.75, 0.75)
 [node name="BackgroundAudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_uv3nh")
 volume_db = -19.97
+
+[node name="ComboLabel" type="Label" parent="."]
+auto_translate_mode = 1
+offset_left = 1094.0
+offset_top = 128.0
+offset_right = 1425.0
+offset_bottom = 183.0
+theme_override_font_sizes/font_size = 40
+text = "COMBO: %d | %d"
+script = ExtResource("9_1ef35")
 
 [editable path="BeatManager"]

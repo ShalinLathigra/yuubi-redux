@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfwk4xsl207ky"]
+[gd_scene load_steps=4 format=3 uid="uid://bfwk4xsl207ky"]
 
 [ext_resource type="Script" path="res://Entities/Enemies/Enemy2D.gd" id="1_cl7mi"]
 [ext_resource type="Texture2D" uid="uid://dsdipcw4brq67" path="res://Art/walk.svg" id="2_u4c7m"]
+[ext_resource type="Script" path="res://Entities/Enemies/HeartBeatSprite2D.gd" id="3_148ca"]
 
 [node name="Target 1" type="Node2D" node_paths=PackedStringArray("sprite") groups=["Entity", "Hittable"]]
 position = Vector2(320, 192)
@@ -12,3 +13,4 @@ sprite = NodePath("Sprite2D")
 self_modulate = Color(1, 0.0434995, 0, 1)
 texture = ExtResource("2_u4c7m")
 flip_h = true
+script = ExtResource("3_148ca")

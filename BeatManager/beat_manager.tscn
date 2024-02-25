@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://b6qxvfmw6hnlo"]
+[gd_scene load_steps=17 format=3 uid="uid://b6qxvfmw6hnlo"]
 
 [ext_resource type="Script" path="res://BeatManager/BeatManager.gd" id="1_7v06m"]
 [ext_resource type="Resource" uid="uid://kjs8n50inteh" path="res://BeatManager/beat_manager.tres" id="2_3esds"]
 [ext_resource type="Script" path="res://BeatManager/BeatDisplay.gd" id="3_1bcbb"]
 [ext_resource type="Shader" path="res://Art/BlankOut.gdshader" id="4_dreh5"]
 [ext_resource type="AudioStream" uid="uid://27xxqchchlx6" path="res://Art/8-Bit - GUI Blip 001.wav" id="4_lg8ix"]
-[ext_resource type="Script" path="res://BeatManager/ComboLabel.gd" id="6_n4rd2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i61cq"]
 size = Vector2(1152, 40)
@@ -211,15 +210,6 @@ script = ExtResource("1_7v06m")
 stats = ExtResource("2_3esds")
 bounds = SubResource("RectangleShape2D_i61cq")
 display_offset = Vector2(576, 48)
-
-[node name="ComboLabel" type="Label" parent="."]
-offset_left = 427.0
-offset_top = 93.0
-offset_right = 758.0
-offset_bottom = 148.0
-theme_override_font_sizes/font_size = 40
-text = "COMBO: %d | %d"
-script = ExtResource("6_n4rd2")
 
 [node name="Display" type="Node2D" parent="."]
 script = ExtResource("3_1bcbb")
