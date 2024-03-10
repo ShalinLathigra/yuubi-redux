@@ -16,33 +16,26 @@
 #
 ################################################################################
 
-extends CanvasLayer
+extends Node
 
 @export var dbg: bool
 @export var stats: GameBeatInfo
-@export var bounds: RectangleShape2D
-@export var display_offset: Vector2
+@export var display: Node2D
 
 var num_beats: int
 var ms_per_beat: int
 var time_trackers: Array[float]
 var beat_width_percentage: float
-var converted_rate: float
 
 var labels: Array[Label]
 
 var time_of_last_beat: int
-
-var display: Node2D
-var animation_player: AnimationPlayer
 
 var start_time_msecs: int
 var started: bool
 
 func _ready() -> void:
 	InputReceiver.on_input.connect(handle_input)
-
-	animation_player = $AnimationPlayer as AnimationPlayer
 
 	num_beats = int(stats.beats_per_minute / 60 * (stats.time_to_sweet_spot * 2.0))
 	ms_per_beat = int(60000.0 / stats.beats_per_minute)
@@ -54,8 +47,6 @@ func _ready() -> void:
 		new_label.global_position.x = 64
 		new_label.global_position.y = 196 + 24 * i
 		labels.push_back(new_label)
-
-	converted_rate = bounds.size.x / (stats.time_to_sweet_spot * 1000.0)
 	# looking for the ration of beat width vs bounds size
 	# time = distance / speed
 	beat_width_percentage = (stats.beat_width / (stats.time_to_sweet_spot * 1000.0)) * 0.5
@@ -69,15 +60,14 @@ func _ready() -> void:
 			Context.on_game_beat.emit())
 
 	# initialize display params
-	display = $Display as Node2D
-	display.inject_data(num_beats, converted_rate, display_offset, bounds, stats, time_trackers, dbg)
+	display.inject_data(num_beats, time_trackers, dbg)
 
-func handle_input(input: StringName, input_time: int):
+func handle_input(input: int, input_time: int):
 	if not started:
 		started = true
 		start_time_msecs = Time.get_ticks_msec()
 
-	if dbg: prints(input, ":", input_time)
+	if dbg: prints(ActionRef.get_type_string(input), ":", input_time)
 	var t = 0.5
 	var is_good = false
 	for i in range(num_beats):
@@ -96,9 +86,7 @@ func handle_input(input: StringName, input_time: int):
 		is_good = true
 
 	# Emit Beat when ready!
-	Context.on_valid_beat.emit(input, input_time, is_good)
-	animation_player.stop()
-	animation_player.play("good_beat" if is_good else "bad_beat")
+	Context.on_input_beat.emit(input, input_time, is_good)
 	time_of_last_beat = input_time
 
 func _process(_delta: float) -> void:

@@ -1,0 +1,115 @@
+[gd_scene load_steps=17 format=3 uid="uid://dk8goham4tbla"]
+
+[ext_resource type="Script" path="res://Level/TestLevel.gd" id="1_cey5i"]
+[ext_resource type="Texture2D" uid="uid://bicwoql8dv4ro" path="res://Art/tiles.png" id="2_6fjh8"]
+[ext_resource type="PackedScene" uid="uid://b6qxvfmw6hnlo" path="res://BeatManager/beat_manager.tscn" id="2_m1mxx"]
+[ext_resource type="PackedScene" uid="uid://3fvuq5ghlput" path="res://Entities/player2D.tscn" id="2_q6ogv"]
+[ext_resource type="Script" path="res://Level/Grid.gd" id="3_hdv0v"]
+[ext_resource type="PackedScene" uid="uid://csl1yfv7ldur3" path="res://Entities/Rock2D.tscn" id="4_aqdpl"]
+[ext_resource type="Resource" uid="uid://kjs8n50inteh" path="res://BeatManager/beat_manager.tres" id="4_q883l"]
+[ext_resource type="Shader" path="res://Art/Circle.gdshader" id="6_d2ee4"]
+[ext_resource type="Texture2D" uid="uid://bd6t7c6od612k" path="res://Art/discobolus.svg" id="7_slrux"]
+[ext_resource type="Script" path="res://BeatManager/ComboLabel.gd" id="9_1ef35"]
+[ext_resource type="Script" path="res://Level/ComboUI.gd" id="9_sgtlv"]
+[ext_resource type="AudioStream" uid="uid://cwtojtoc4ojyp" path="res://Art/LOOP_Spikes & Slimes.wav" id="9_uv3nh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yll6k"]
+texture = ExtResource("2_6fjh8")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_icf70"]
+tile_size = Vector2i(128, 128)
+sources/7 = SubResource("TileSetAtlasSource_yll6k")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vweic"]
+bg_color = Color(0.427451, 1.39216, 1.8, 0.176471)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wy6s1"]
+shader = ExtResource("6_d2ee4")
+shader_parameter/edge = 0.04
+
+[node name="GameLevel" type="Node2D"]
+script = ExtResource("1_cey5i")
+dbg = true
+
+[node name="BeatManager" parent="." instance=ExtResource("2_m1mxx")]
+
+[node name="FlashSprite" parent="BeatManager/AnimationPlayer" index="2"]
+self_modulate = Color(0.886275, 0.054902, 0, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(0, 96)
+tile_set = SubResource("TileSet_icf70")
+format = 2
+layer_0/tile_data = PackedInt32Array(65536, 65543, 0, 196608, 65543, 0, 65538, 65543, 0, 196610, 65543, 0, 262147, 65543, 0, 131075, 65543, 0, 65540, 7, 0, 196612, 7, 0, 262149, 65543, 0, 131077, 65543, 0, 65542, 65543, 0, 196614, 65543, 0, 262151, 7, 0, 131079, 7, 0, 65544, 65543, 0, 196616, 65543, 0, 131073, 65543, 0, 262145, 65543, 0, 262152, 7, 0, 131080, 7, 0, 65543, 65543, 0, 196615, 65543, 0, 262150, 7, 0, 131078, 7, 0, 65541, 7, 0, 196613, 7, 0, 262148, 65543, 0, 131076, 65543, 0, 65539, 7, 0, 196611, 7, 0, 262146, 65543, 0, 131074, 65543, 0, 65537, 65543, 0, 196609, 65543, 0, 262144, 65543, 0, 131072, 65543, 0, 327680, 65543, 0, 327682, 65543, 0, 327684, 7, 0, 327686, 65543, 0, 327688, 65543, 0, 327690, 7, 0, 196618, 7, 0, 65546, 7, 0, 131083, 7, 0, 131081, 7, 0, 262153, 7, 0, 327681, 65543, 0, 327683, 7, 0, 327685, 7, 0, 327687, 65543, 0, 327689, 7, 0, 262154, 7, 0, 196617, 7, 0, 131082, 7, 0, 65545, 7, 0, 65547, 7, 0, 196619, 7, 0, 327691, 7, 0, 393215, 65543, 0, 393214, 65543, 0, 327678, 65543, 0, 262142, 65543, 0, 262143, 65543, 0, 327679, 65543, 0, 196606, 65543, 0, 196607, 65543, 0, 131070, 65543, 0, 131071, 65543, 0, 131069, 65543, 0, 196605, 65543, 0, 262141, 65543, 0, 327677, 65543, 0, 393213, 65543, 0, 393212, 65543, 0, 327676, 65543, 0, 262140, 65543, 0, 131068, 65543, 0, 196604, 65543, 0, 327692, 7, 0, 327693, 7, 0, 262157, 7, 0, 196621, 7, 0, 196620, 7, 0, 131084, 7, 0, 65548, 7, 0, 65549, 7, 0, 65550, 7, 0, 131086, 7, 0, 131085, 7, 0, 196622, 7, 0, 262158, 7, 0, 327694, 7, 0, 327695, 7, 0, 262159, 7, 0, 196623, 7, 0, 131087, 7, 0, 65551, 7, 0, 262155, 7, 0, 262156, 7, 0)
+script = ExtResource("3_hdv0v")
+stats = ExtResource("4_q883l")
+
+[node name="ComboUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("9_sgtlv")
+
+[node name="Label" type="Label" parent="ComboUI"]
+auto_translate_mode = 1
+offset_left = 1094.0
+offset_top = 128.0
+offset_right = 1425.0
+offset_bottom = 183.0
+theme_override_font_sizes/font_size = 40
+text = "COMBO: %d | %d"
+script = ExtResource("9_1ef35")
+
+[node name="Panel" type="Panel" parent="ComboUI"]
+layout_mode = 0
+offset_top = 224.0
+offset_right = 128.0
+offset_bottom = 864.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vweic")
+
+[node name="Fret1" type="Sprite2D" parent="ComboUI"]
+material = SubResource("ShaderMaterial_wy6s1")
+position = Vector2(384, 224)
+texture = ExtResource("7_slrux")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ComboUI/Fret1"]
+material = SubResource("ShaderMaterial_wy6s1")
+position = Vector2(0, 640)
+texture = ExtResource("7_slrux")
+
+[node name="Fret2" type="Sprite2D" parent="ComboUI"]
+material = SubResource("ShaderMaterial_wy6s1")
+position = Vector2(768, 224)
+texture = ExtResource("7_slrux")
+
+[node name="Sprite2D5" type="Sprite2D" parent="ComboUI/Fret2"]
+material = SubResource("ShaderMaterial_wy6s1")
+position = Vector2(0, 640)
+texture = ExtResource("7_slrux")
+
+[node name="Fret3" type="Sprite2D" parent="ComboUI"]
+material = SubResource("ShaderMaterial_wy6s1")
+position = Vector2(1152, 224)
+texture = ExtResource("7_slrux")
+
+[node name="Sprite2D6" type="Sprite2D" parent="ComboUI/Fret3"]
+material = SubResource("ShaderMaterial_wy6s1")
+position = Vector2(0, 640)
+texture = ExtResource("7_slrux")
+
+[node name="Rock" parent="." instance=ExtResource("4_aqdpl")]
+
+[node name="Player" parent="." instance=ExtResource("2_q6ogv")]
+position = Vector2(64, 288)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(768, 432)
+zoom = Vector2(0.75, 0.75)
+
+[node name="BackgroundAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_uv3nh")
+volume_db = -19.97
+
+[editable path="BeatManager"]

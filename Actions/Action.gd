@@ -13,6 +13,8 @@ class_name Action extends Node
 #
 ################################################################################
 
+# started signal
+# ended signal
 
 var is_started: bool # indicates whether a state has started the "enter" steps
 var is_finished: bool # indicates that the state has finished the "exit" steps

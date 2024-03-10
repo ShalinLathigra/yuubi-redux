@@ -12,13 +12,13 @@ var actions: Array[Action]
 var current_action: int
 
 func _ready() -> void:
-	Context.on_valid_beat.connect(handle_input)
+	Context.on_processed_beat.connect(handle_action)
 	super._ready()
 	for action in actions:
 		add_child(action)
 
-func handle_input(input: String, _time: int, _is_good: bool):
-	var new_action: Action
+func handle_action(input: int, _time: int, _is_good: bool, input_action: Action):
+	var new_action: Action = input_action
 	#if dbg: prints(Time.get_ticks_msec(), name, input, ":", time, "-", is_good)
 	var needs_fetch = Context.rock.visible == true
 	for action in actions:
@@ -26,25 +26,14 @@ func handle_input(input: String, _time: int, _is_good: bool):
 			needs_fetch = false
 	if needs_fetch:
 		new_action = ActionFactory.PlayerFetch(self, Context.rock, Context.grid)
-	elif input in ["UP", "DOWN"]:
-		var displacement := Vector2i(0, -1 if input == "UP" else 1)
-		new_action = ActionFactory.PlayerMove(self, Context.rock, Context.grid, displacement)
-	elif input == "THROW":
-		new_action = ActionFactory.PlayerThrow(self, Context.rock, Context.grid)
-	elif input == "BEAT":
-		new_action = ActionFactory.BasicRest()
-		# Do the effects that should take place during this dead time here
-		# Maybe have a running tally at the end of how many of these were
-		# done?
-	if not new_action:
-		return
+
 	if len(actions) < 2:
 		actions.push_back(new_action)
 	else:
 		remove_child(actions[1])
 		actions[1] = new_action
 	add_child(new_action)
-	print(actions)
+	#if dbg: prints(Time.get_ticks_msec(), name, "actions:", actions)
 
 func do() -> void:
 	if len(actions) > 0:

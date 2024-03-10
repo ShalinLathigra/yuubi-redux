@@ -16,10 +16,10 @@ var tween: Tween
 var live: bool
 
 func _ready() -> void:
-	if not get_parent().is_node_ready():
-		await get_parent().ready
-	assert(Context.grid)
-	Context.grid.center_entity(self)
+	if not Context.is_ready:
+		await Context.level_ready
+
+	Context.grid.center_entity(self, true)
 
 func is_running() -> bool:
 	return tween && tween.is_running()

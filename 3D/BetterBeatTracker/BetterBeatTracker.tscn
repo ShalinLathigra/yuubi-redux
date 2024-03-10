@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://3D/OldBeatTracker/SimpleBeatDisplay.gd" id="3_omyyo"]
 [ext_resource type="Script" path="res://3D/BetterBeatTracker/BetterBeatTracker.gd" id="4_1cqg3"]
 [ext_resource type="Script" path="res://3D/BetterBeatTracker/Line2D.gd" id="6_ycu56"]
-[ext_resource type="Shader" path="res://Art/BlankOut.gdshader" id="7_b1s2r"]
+[ext_resource type="Shader" path="res://Art/Circle.gdshader" id="7_b1s2r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5d7xn"]
 resource_local_to_scene = true

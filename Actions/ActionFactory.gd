@@ -8,7 +8,6 @@ class_name ActionFactory
 #
 ################################################################################
 
-
 # PLAYER ACTIONS
 static func PlayerMove(player: Entity2D\
 		, rock: Entity2D\

@@ -29,7 +29,8 @@ func enter() -> void:
 	grid.move_along_grid(subject, displacement)
 
 func exit() -> void:
-	subject.tween.stop()
+	if subject.tween:
+		subject.tween.stop()
 	super.exit()
 
 func do() -> void:

@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://Entities/Enemies/HeartBeatSprite2D.gd" id="3_148ca"]
 
 [node name="Target 1" type="Node2D" node_paths=PackedStringArray("sprite") groups=["Entity", "Hittable"]]
-position = Vector2(320, 192)
 script = ExtResource("1_cl7mi")
 sprite = NodePath("Sprite2D")
 

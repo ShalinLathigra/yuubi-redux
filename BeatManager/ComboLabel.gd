@@ -13,11 +13,11 @@ var current_hits: int = 0
 var combo: int = 0
 
 func _ready() -> void:
-	Context.on_valid_beat.connect(handle_input)
+	Context.on_input_beat.connect(handle_input)
 	Context.enemy_popped.connect(handle_popped_enemy)
 	update_label()
 
-func handle_input(_input: String, _time: int, is_good: bool):
+func handle_input(_input: int, _time: int, is_good: bool):
 	if is_good:
 		current_hits += 1
 	else:

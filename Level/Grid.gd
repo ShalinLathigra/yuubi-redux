@@ -32,5 +32,10 @@ func move_along_grid(entity: Entity2D, displacement: Vector2i) -> void:
 								, entity.grid_pos + displacement,
 								0)
 
-func center_entity(entity: Entity2D) -> void:
+func center_entity(entity: Entity2D, update_grid_pos: bool = false) -> void:
+	if update_grid_pos:
+		entity.grid_pos = local_to_map(entity.position)
 	entity.position = to_global(map_to_local(entity.grid_pos))
+
+func update_claim() -> void:
+	pass
